@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build C Program",
+        "type": "cppbuild",
+        "command": "gcc",
+        "args": [
+          "-o",
+          "${workspaceFolder}/${fileBasenameNoExtension}",
+          "${file}",
+          "-lm"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+  

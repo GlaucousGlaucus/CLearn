@@ -238,22 +238,14 @@ int digits_in_num(int num) {
 }
 
 void number_tree(int limit) {
-  int num_digits;
-  num_digits = digits_in_num(limit);
+  int num_digits = digits_in_num(limit);
+  int factor = num_digits == 1 ? 1 : num_digits;
   for (int i = 1; i <= limit; i++) {
-    // Add spaces
-    for (int k = 0; k < limit - i; k++) {
-      for (int m = 0; m < num_digits; m++) {
-        printf(" ");
-      }
-    }
+    printf("%*s", num_digits * (limit - i), "");
     // Print the numbers
     for (int j = 1; j <= i; j++) {
-      printf("%d  ", i);
-      // Print Extra Gaps
-      for (int m = 0; m < num_digits-digits_in_num(i); m++) {
-        printf(" ");
-      }
+      printf("%d", i);
+      printf("%*s", num_digits - digits_in_num(i) + factor, "");
     }
     printf("\n");
   }
@@ -273,11 +265,16 @@ int main() {
   // char str[] = "";
 
   // concat("Sup", "Nerds"); // Not Needed Hopefully
-  number_tree(30);
-  // 
+  // number_tree(3);
+  //
   // int num;
   // scanf("%d", &num);
   // digits_in_num(num);
+
+  int i = 1;
+  int j = 2;
+  if (i + j == 3);
+  printf("test");
 
   return 0;
 }

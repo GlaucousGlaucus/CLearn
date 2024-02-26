@@ -1,3 +1,4 @@
+#include <endian.h>
 #include <fenv.h>
 #include <math.h>
 #include <stdint.h>
@@ -220,8 +221,42 @@ void array_reverse() {
 }
 
 // TODO
-void concat(char *a, char *b) {
-  printf("%s", a);
+void concat(char *a, char *b) { printf("%s", a); }
+
+int digits_in_num(int num) {
+  /*Return the number of digits in the number*/
+  // Handle Negative numbers
+  if (num < 0) {
+    num *= -1;
+  }
+  int digits = 1;
+  while (num / 10 != 0) {
+    digits++;
+    num /= 10;
+  }
+  return digits;
+}
+
+void number_tree(int limit) {
+  int num_digits;
+  num_digits = digits_in_num(limit);
+  for (int i = 1; i <= limit; i++) {
+    // Add spaces
+    for (int k = 0; k < limit - i; k++) {
+      for (int m = 0; m < num_digits; m++) {
+        printf(" ");
+      }
+    }
+    // Print the numbers
+    for (int j = 1; j <= i; j++) {
+      printf("%d  ", i);
+      // Print Extra Gaps
+      for (int m = 0; m < num_digits-digits_in_num(i); m++) {
+        printf(" ");
+      }
+    }
+    printf("\n");
+  }
 }
 
 
@@ -235,9 +270,14 @@ int main() {
   // fibbonachi(50);
   // primegen(50);
   // array_reverse();
-  char str[] = "";
+  // char str[] = "";
 
-  concat("Sup", "Nerds"); // Not Needed Hopefully
+  // concat("Sup", "Nerds"); // Not Needed Hopefully
+  number_tree(30);
+  // 
+  // int num;
+  // scanf("%d", &num);
+  // digits_in_num(num);
 
   return 0;
 }

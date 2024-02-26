@@ -1,4 +1,6 @@
+#include <fenv.h>
 #include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -160,6 +162,68 @@ void polar_rectangle_converter() {
   getchar();
 }
 
+void fibbonachi(int limit) {
+  int a = 0;
+  int b = 1;
+  printf("%d %d", a, b);
+  while (limit > 0) {
+      int c = a + b;
+      printf(" %d", c);
+      a = b;
+      b = c;
+      limit--;
+  }
+  printf("\n");
+}
+
+int is_prime(int num) {
+  for (int i = 2; i < num; i++) {
+      if (num % i == 0) return 0;
+  }
+  return 1;
+}
+
+void primegen(int limit) {
+  int prev = 1;
+  for (int i = 0; i < limit; i++) {
+      for (int j = 2; j < prev; j++) {
+      if (prev % j == 0)
+        prev++;
+      }
+    printf("%d ", prev);
+    prev++;
+  }
+  printf("\n");
+}
+
+void array_reverse() {
+  int arr_len = 6;
+  int arr[arr_len];
+  int temp, pivot;
+  // Create a new array
+  for (int x = 0; x < arr_len; x++) {
+    arr[x] = x * x;
+  }
+
+  // Reverse it
+  pivot = arr_len/2;
+  for (int i = 0; i < pivot; i++) {
+    temp = arr[arr_len - i - 1];
+    arr[arr_len - i - 1] = arr[i];
+    arr[i] = temp;
+  }
+
+  // Print it
+  for (int i = 0; i < arr_len; i++) {
+    printf("%d %d\n", arr[i], i);
+  }
+}
+
+// TODO
+void concat(char *a, char *b) {
+  printf("%s", a);
+}
+
 
 int main() {
   // revenue_eater();
@@ -167,8 +231,13 @@ int main() {
   // simple_calculator();
   // sum_of_evens();
   // grade_system();
+  // polar_rectangle_converter();
+  // fibbonachi(50);
+  // primegen(50);
+  // array_reverse();
+  char str[] = "";
 
-  polar_rectangle_converter();
+  concat("Sup", "Nerds"); // Not Needed Hopefully
 
   return 0;
 }

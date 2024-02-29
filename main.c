@@ -163,7 +163,7 @@ void polar_rectangle_converter() {
   getchar();
 }
 
-void fibbonachi(int limit) {
+void fibonacci_gen_limit(int limit) {
   int a = 0;
   int b = 1;
   printf("%d %d", a, b);
@@ -184,7 +184,7 @@ int is_prime(int num) {
   return 1;
 }
 
-void primegen(int limit) {
+void prime_gen(int limit) {
   int prev = 1;
   for (int i = 0; i < limit; i++) {
       for (int j = 2; j < prev; j++) {
@@ -220,9 +220,6 @@ void array_reverse() {
   }
 }
 
-// TODO
-void concat(char *a, char *b) { printf("%s", a); }
-
 int digits_in_num(int num) {
   /*Return the number of digits in the number*/
   // Handle Negative numbers
@@ -251,30 +248,101 @@ void number_tree(int limit) {
   }
 }
 
+int armstrong(int num) {
+    float sum = 0;
+    float numf = num;
+    int digits = digits_in_num(num);
+    while (num != 0) {
+        sum += pow(num % 10, digits);
+        num /= 10;
+    }
+    return sum == numf;
+}
+
+int factorial_recursion_loop(int num, int recursion) {
+    int factorial = 1;
+    if (recursion) {
+        if (num == 1 || num == 0) return 1;
+        return num * factorial_recursion_loop(num - 1, 1);
+    } else {
+        while (num != 1) {
+            factorial *= num;
+            num--;
+        }
+        return factorial;
+    }
+}
+
+void quadratic_eqn_solver(double a, double b, double c) {
+    double discriminant;
+    double roots[2];
+    int complex_roots = 0;
+    discriminant = pow(b, 2) - 4 * a * c;
+    if (discriminant < 0) {
+        discriminant *= -1;
+        complex_roots = 1;
+    }
+    discriminant = pow(discriminant, 0.5);
+
+    if (complex_roots == 1) {
+        roots[0] = (-b / 2*a); // Real Part
+        roots[1] = discriminant / (2*a); // Imaginary Part
+        printf("The roots of the equation %fx^2 + %fx + %f are %f + %f i and %f - %f i",
+               a, b, c, roots[0], roots[1], roots[0], roots[1]);
+    } else {
+        roots[0] = (-b + discriminant) / (2*a);
+        roots[1] = (-b - discriminant) / (2*a);
+        printf("The roots of the equation %fx^2 + %fx + %f are %f and %f", a, b, c, roots[0], roots[1]);
+    }
+}
+
+double arithmetic_series_sum(double a, double d, int n) {
+    return n * (2 * a + (n - 1) * d)/2;
+}
+
+double geometric_series_sum(double a, double r, int n) {
+    if (n != -1) {
+        if (r < 1) {
+            return a * (1 - pow(r, n)) / (1 - r);
+        } else if (r > 1) {
+            return a * (pow(r, n) - 1) / (r - 1);
+        } else {
+            return n * a;
+        }
+    } else {
+        if (r >= 1) {
+            printf("The series does not converge and does not have a sum!");
+        } else {
+            return a / (1 - r);
+        }
+    }
+    return NAN;
+}
 
 int main() {
-  // revenue_eater();
-  // winners_eater();
-  // simple_calculator();
-  // sum_of_evens();
-  // grade_system();
-  // polar_rectangle_converter();
-  // fibbonachi(50);
-  // primegen(50);
-  // array_reverse();
-  // char str[] = "";
+//   revenue_eater();
+//   winners_eater();
+//   simple_calculator();
+//   sum_of_evens();
+//   grade_system();
+//   polar_rectangle_converter();
+//   fibonacci_gen_limit(50);
+//   prime_gen(50);
+//   array_reverse();
+//   char str[] = "";
+//   number_tree(3);
 
-  // concat("Sup", "Nerds"); // Not Needed Hopefully
-  // number_tree(3);
-  //
-  // int num;
-  // scanf("%d", &num);
-  // digits_in_num(num);
+//   int num;
+//   scanf("%d", &num);
+//   digits_in_num(num);
 
-  int i = 1;
-  int j = 2;
-  if (i + j == 3);
-  printf("test");
+//   printf("%d\n", armstrong(93084));
+//   printf("%d\n", factorial_recursion_loop(5, 0));
+//    quadratic_eqn_solver(1, -4, 4);
 
-  return 0;
+//    printf("%f\n", arithmetic_series_sum(8, 1, 5));
+//    printf("%f\n", geometric_series_sum(8, 1, 5));
+
+
+    return 0;
 }

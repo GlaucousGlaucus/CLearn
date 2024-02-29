@@ -127,7 +127,8 @@ void grade_system() {
 }
 
 void polar_rectangle_converter() {
-  /* Converts polar form to rectangular form and vice a versa */
+  /* Converts polar form to rectangular form and vice a versa.
+   * Auto Detects whether the input is in polar or rectangular form.*/
   char input[100+1];
   float real, imag, angle, magnitude;
   char operator;
@@ -136,6 +137,7 @@ void polar_rectangle_converter() {
   fgets(input, sizeof(input), stdin);
 
   flag = sscanf(input, "%f %c j%f", &real, &operator, & imag);
+  flag |= sscanf(input, "%f %c %fj", &real, &operator, & imag);
 
   if (flag == 3 && (operator== '+' || operator== '-')) {
       // Rectangular form

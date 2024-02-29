@@ -319,19 +319,23 @@ double geometric_series_sum(double a, double r, int n) {
     return NAN;
 }
 
-double matrix_determinant() {
+void matrix_determinant() {
+    int n = 2;
+    float matrix[n][n];
+    float det;
+    // Matrix Input
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("A%d%d: ", i+1, j+1);
+            scanf("%f", &(matrix[i][j]));
+        }
+    }
 
+    // Determinant
+    // Expand along the top row
+    det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+    printf("The determinant of matrix is: %f", det);
 }
-
-//void print_matrix(float** matrix, int n, int m) {
-//    for (int i = 0; i < n; i++) {
-//        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
-//        for (int j = 0; j < m; j++) {
-//            printf("%.2f ", matrix[i][j]);
-//        }
-//        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
-//    }
-//}
 
 void matrix_multiplication() {
     // Get input
@@ -348,7 +352,6 @@ void matrix_multiplication() {
     float matrix1[n][p];
     float matrix2[p][m];
     float product_matrix[n][m];
-    float temp_sum;
 
     // Matrix Input
     // Matrix A
@@ -369,6 +372,7 @@ void matrix_multiplication() {
     // Calculate Product
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
+            product_matrix[i][j] = 0;
             for (int k = 0; k < p; k++) {
                 product_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
             }
@@ -380,12 +384,61 @@ void matrix_multiplication() {
     for (int i = 0; i < n; i++) {
         printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
         for (int j = 0; j < m; j++) {
-            printf("%.2f ", product_matrix[i][j]);
+            printf("%20.2f ", product_matrix[i][j]);
         }
         printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
     }
 
 }
+
+int binary_to_decimal(int bin_num) {
+    int decimal = 0;
+    int place = 0;
+    while (bin_num != 0) {
+//        printf("%d\n", bin_num % 10);
+        decimal += (bin_num % 10) * pow(2, place);
+        bin_num /= 10;
+        place++;
+    }
+    printf("deci: %d", decimal);
+    return decimal;
+}
+
+int leap_year(int year) {
+    return year % 4 == 0;
+}
+
+void max_array() {
+    // Input array
+    int size, max_ind;
+    double max;
+    printf("Enter Array Size: ");
+    scanf("%d", &size);
+    double array[size];
+
+    for (int i = 0; i < size; i++) {
+        printf("Element %d: ", i+1);
+        scanf("%lf", &array[i]);
+        if (array[i] >= max) {
+            max = array[i];
+            max_ind = i;
+        }
+    }
+
+    printf("The Largest value in the array is %lf at index %d", max, max_ind);
+}
+
+int palindrome_check(char string[]) {
+    unsigned long len = strlen(string) - 1;
+    for (int i = 0; i <= len; i++) {
+        if (string[i] != string[len - i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
 
 int main() {
 //   revenue_eater();
@@ -411,6 +464,15 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-    matrix_multiplication();
+//    matrix_multiplication();
+//    matrix_determinant();
+
+//    binary_to_decimal(111000);
+
+//    printf("%d leap", leapYear(2024));
+//    max_array();
+//    printf("%d\n", palindrome_check("madam")); // True
+//    printf("%d\n", palindrome_check("madm")); // False
+
     return 0;
 }

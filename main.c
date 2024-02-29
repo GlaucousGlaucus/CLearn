@@ -319,6 +319,74 @@ double geometric_series_sum(double a, double r, int n) {
     return NAN;
 }
 
+double matrix_determinant() {
+
+}
+
+//void print_matrix(float** matrix, int n, int m) {
+//    for (int i = 0; i < n; i++) {
+//        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
+//        for (int j = 0; j < m; j++) {
+//            printf("%.2f ", matrix[i][j]);
+//        }
+//        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
+//    }
+//}
+
+void matrix_multiplication() {
+    // Get input
+    int max_order = 5;
+    int n, p, m;
+    // Get Matrix Orders
+    printf("Enter matrix order n, p, m: ");
+    scanf("%d, %d, %d", &n, &p, &m);
+    // Verify Orders
+    if ((n > max_order || p > max_order || m > max_order) && (n != 0 || p != 0 || m != 0)) {
+        printf("Invalid Orders! The Maximum order is %d!", max_order);
+        return;
+    }
+    float matrix1[n][p];
+    float matrix2[p][m];
+    float product_matrix[n][m];
+    float temp_sum;
+
+    // Matrix Input
+    // Matrix A
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < p; j++) {
+            printf("A%d%d: ", i+1, j+1);
+            scanf("%f", &(matrix1[i][j]));
+        }
+    }
+    // Matrix B
+    for (int i = 0; i < p; i++) {
+        for (int j = 0; j < m; j++) {
+            printf("B%d%d: ", i+1, j+1);
+            scanf("%f", &(matrix2[i][j]));
+        }
+    }
+
+    // Calculate Product
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            for (int k = 0; k < p; k++) {
+                product_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    // Print Matrix
+    printf("The Product Matrix:\n");
+    for (int i = 0; i < n; i++) {
+        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
+        for (int j = 0; j < m; j++) {
+            printf("%.2f ", product_matrix[i][j]);
+        }
+        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
+    }
+
+}
+
 int main() {
 //   revenue_eater();
 //   winners_eater();
@@ -343,6 +411,6 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-
+    matrix_multiplication();
     return 0;
 }

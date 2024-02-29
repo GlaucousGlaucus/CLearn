@@ -32,7 +32,7 @@ int revenue_eater() {
 void winners_eater() {
   int numParticipants = 0;
   int points[] = {0, 1, 2, 3, 3};
-  int hightest_point = 0;
+  int highest_point = 0;
   int winners = 0;
   printf("--- Winners Eater V1 ---\n");
   printf("Enter Number of Participants: ");
@@ -47,12 +47,12 @@ void winners_eater() {
       printf("Enter Points: ");
       scanf("%d", &points[i]);
       if (i == 0 || (i > 0 && points[i] > points[i - 1])) {
-        hightest_point = points[i];
+          highest_point = points[i];
       }
     }
     // Calculate the winner's points
     for (int i = 0; i < numParticipants; i++) {
-      if (points[i] == hightest_point) {
+      if (points[i] == highest_point) {
         winners += 1;
         printf("The Winner is Participant: %d\n", i+1);
       }
@@ -319,7 +319,7 @@ double geometric_series_sum(double a, double r, int n) {
     return NAN;
 }
 
-void matrix_determinant() {
+void matrix_determinant2x2() {
     int n = 2;
     float matrix[n][n];
     float det;
@@ -438,7 +438,14 @@ int palindrome_check(char string[]) {
     return 1;
 }
 
+int random_int(int seed) {
+    seed = seed * 1664525 + 1013904223 * 2;
+    return seed >> 24;
+}
 
+void decipher_morse() {
+
+}
 
 int main() {
 //   revenue_eater();
@@ -473,6 +480,9 @@ int main() {
 //    max_array();
 //    printf("%d\n", palindrome_check("madam")); // True
 //    printf("%d\n", palindrome_check("madm")); // False
+
+//    printf("%d", random_int(123));
+//    rock_paper_scissors();
 
     return 0;
 }

@@ -479,8 +479,8 @@ int turn_eval(int p1, int p2) {
 }
 
 void rock_paper_scissors() {
+    //TODO: Improve UI
     char player_name[100];
-    // These values were used in C90
     int a = 2, c = 1, seed, best_of;
     int score_ai = 0, score_player = 0;
     int ai_choice, player_choice;

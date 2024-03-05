@@ -440,13 +440,101 @@ int palindrome_check(char string[]) {
     return 1;
 }
 
-int random_int(int seed) {
-    seed = seed * 1664525 + 1013904223 * 2;
-    return seed >> 24;
+int random_int(int seed, int m, int a, int c) {
+    /*This is a Linear Congruential (Pseudo) Random Number Generator*/
+    return (a * seed + c) % m;
 }
 
-void decipher_morse() {
+int get_ai_choice(int rand_num) {
+    int choice = 0;
+    if (rand_num % 2) {
+        choice++;
+    }
+    if (rand_num % 3) {
+        choice++;
+    }
+    return choice;
+}
 
+int turn_eval(int p1, int p2) {
+    // Rock : 0 Paper : 1 Scissors: 2
+    /*
+     * Rock : 0 Paper : 1 Scissors: 2
+     * 0 + 2 = 2 -> 0
+     * 1 + 0 = 1 -> 1
+     * 2 + 1 = 3 -> 2
+     * */
+    int sum = p1 + p2;
+    int win_type;
+    if (p1 == p2) { // Draw
+        return -1;
+    }
+    switch (sum) {
+        case 1:
+            win_type = 1;
+            break;
+        case 2:
+            win_type = 0;
+            break;
+        case 3:
+            win_type = 2;
+            break;
+        default:
+            win_type = -1;
+            break;
+    }
+    if (win_type == -1) {
+        return -1;
+    }
+    return win_type == p1 ? 1 : 2;
+}
+
+void rock_paper_scissors() {
+    char player_name[100];
+    // These values were used in C90
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, best_of;
+    int score_ai = 0, score_player = 0;
+    int ai_choice, player_choice;
+    // Input Game Options
+    printf("Please Enter Your Name (Max 100 characters): ");
+    scanf("%99s", player_name);
+    printf("Score at which a player wins: ");
+    scanf("%d", &best_of);
+
+    // Calculate Seed
+    seed = ((int) strlen(player_name)) * (best_of);
+
+    // Play game
+    while (score_player < best_of && score_ai < best_of) {
+        printf("Enter Your Choice: ");
+        scanf("%d", &player_choice);
+
+        ai_choice = get_ai_choice((int) (seed));
+        printf("AI: %d\n", ai_choice);
+        switch (turn_eval(player_choice, ai_choice)) {
+            case 1:
+                score_player++;
+                printf("%s Won!\n", player_name);
+                break;
+            case 2:
+                score_ai++;
+                printf("AI WON!\n");
+                break;
+            default:
+                printf("Draw\n");
+                break;
+        }
+
+        a += ai_choice + player_choice;
+        seed = random_int(seed, m, a, c);
+    }
+
+    printf("The Scores are:\n \tPlayer: %d\n \tLCG: %d\n", score_player, score_ai);
+    if (score_ai > score_player) {
+        printf("AI Won with %d point(s)!", score_ai);
+    } else {
+        printf("%s Won with %d point(s)!", player_name, score_player);
+    }
 }
 
 int main() {
@@ -484,7 +572,7 @@ int main() {
 //    printf("%d\n", palindrome_check("madm")); // False
 
 //    printf("%d", random_int(123));
-//    rock_paper_scissors();
+    rock_paper_scissors();
 
     return 0;
 }

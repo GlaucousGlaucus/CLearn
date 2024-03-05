@@ -445,17 +445,6 @@ int random_int(int seed, int m, int a, int c) {
     return (a * seed + c) % m;
 }
 
-int get_ai_choice(int rand_num) {
-    int choice = 0;
-    if (rand_num % 2) {
-        choice++;
-    }
-    if (rand_num % 3) {
-        choice++;
-    }
-    return choice;
-}
-
 int turn_eval(int p1, int p2) {
     // Rock : 0 Paper : 1 Scissors: 2
     /*
@@ -492,7 +481,7 @@ int turn_eval(int p1, int p2) {
 void rock_paper_scissors() {
     char player_name[100];
     // These values were used in C90
-    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, best_of;
+    int a = 2, c = 1, seed, best_of;
     int score_ai = 0, score_player = 0;
     int ai_choice, player_choice;
     // Input Game Options
@@ -508,8 +497,8 @@ void rock_paper_scissors() {
     while (score_player < best_of && score_ai < best_of) {
         printf("Enter Your Choice: ");
         scanf("%d", &player_choice);
-
-        ai_choice = get_ai_choice((int) (seed));
+        seed = random_int(seed, 3, a, c);
+        ai_choice = seed % 3;
         printf("AI: %d\n", ai_choice);
         switch (turn_eval(player_choice, ai_choice)) {
             case 1:
@@ -524,9 +513,6 @@ void rock_paper_scissors() {
                 printf("Draw\n");
                 break;
         }
-
-        a += ai_choice + player_choice;
-        seed = random_int(seed, m, a, c);
     }
 
     printf("The Scores are:\n \tPlayer: %d\n \tLCG: %d\n", score_player, score_ai);

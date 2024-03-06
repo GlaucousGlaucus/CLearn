@@ -495,9 +495,11 @@ void print_choice_name(int choice) {
         case 0:
             printf("Rock");
             break;
+        case -1:
         case 1:
             printf("Paper");
             break;
+        case -2:
         case 2:
             printf("Scissors");
             break;
@@ -507,9 +509,8 @@ void print_choice_name(int choice) {
 }
 
 void rock_paper_scissors() {
-    //TODO: Improve UI
     char player_name[100], p_choice_input[100];
-    int a = 2, c = 1, seed, best_of;
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, best_of;
     int score_ai = 0, score_player = 0;
     int ai_choice, player_choice;
     // Input Game Options
@@ -531,7 +532,7 @@ void rock_paper_scissors() {
             continue;
         }
 
-        seed = random_int(seed, 3, a, c);
+        seed = random_int(seed, m, a, c);
         ai_choice = seed % 3;
         printf("Computer Chose: ");
         print_choice_name(ai_choice);

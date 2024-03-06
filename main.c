@@ -446,7 +446,6 @@ int random_int(int seed, int m, int a, int c) {
 }
 
 int turn_eval(int p1, int p2) {
-    // Rock : 0 Paper : 1 Scissors: 2
     /*
      * Rock : 0 Paper : 1 Scissors: 2
      * 0 + 2 = 2 -> 0
@@ -478,9 +477,38 @@ int turn_eval(int p1, int p2) {
     return win_type == p1 ? 1 : 2;
 }
 
+int eval_player_choice(const char input[]) {
+    if (strstr(input, "r") != NULL || strstr(input, "rock") != NULL) {
+        return 0;
+    }
+    if (strstr(input, "p") != NULL || strstr(input, "paper") != NULL) {
+        return 1;
+    }
+    if (strstr(input, "s") != NULL || strstr(input, "scissors") != NULL) {
+        return 2;
+    }
+    return -1;
+}
+
+void print_choice_name(int choice) {
+    switch (choice) {
+        case 0:
+            printf("Rock");
+            break;
+        case 1:
+            printf("Paper");
+            break;
+        case 2:
+            printf("Scissors");
+            break;
+        default:
+            break;
+    }
+}
+
 void rock_paper_scissors() {
     //TODO: Improve UI
-    char player_name[100];
+    char player_name[100], p_choice_input[100];
     int a = 2, c = 1, seed, best_of;
     int score_ai = 0, score_player = 0;
     int ai_choice, player_choice;
@@ -495,11 +523,19 @@ void rock_paper_scissors() {
 
     // Play game
     while (score_player < best_of && score_ai < best_of) {
-        printf("Enter Your Choice: ");
-        scanf("%d", &player_choice);
+        printf("Enter Your Choice (Rock/Paper/Scissors): ");
+        scanf("%99s", p_choice_input);
+        player_choice = eval_player_choice(p_choice_input);
+        if (player_choice == -1) {
+            printf("Please Enter A Valid Move.\n");
+            continue;
+        }
+
         seed = random_int(seed, 3, a, c);
         ai_choice = seed % 3;
-        printf("AI: %d\n", ai_choice);
+        printf("Computer Chose: ");
+        print_choice_name(ai_choice);
+        printf("\n");
         switch (turn_eval(player_choice, ai_choice)) {
             case 1:
                 score_player++;
@@ -507,7 +543,7 @@ void rock_paper_scissors() {
                 break;
             case 2:
                 score_ai++;
-                printf("AI WON!\n");
+                printf("Computer WON!\n");
                 break;
             default:
                 printf("Draw\n");
@@ -515,9 +551,11 @@ void rock_paper_scissors() {
         }
     }
 
-    printf("The Scores are:\n \tPlayer: %d\n \tLCG: %d\n", score_player, score_ai);
+    // Display Results
+
+    printf("The Scores are:\n Player: %d \tLCG: %d\n", score_player, score_ai);
     if (score_ai > score_player) {
-        printf("AI Won with %d point(s)!", score_ai);
+        printf("Computer Won with %d point(s)!", score_ai);
     } else {
         printf("%s Won with %d point(s)!", player_name, score_player);
     }

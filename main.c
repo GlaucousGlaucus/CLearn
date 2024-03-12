@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <curses.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 #define PI 3.14
 
@@ -651,7 +653,8 @@ void fraction_representation(double decimal) {
 
 void print_board(int (*board)[BOARD_SIZE]) {
     // Clear Screen
-    for (int c = 0; c < 50; c++) printf("\n");
+//    for (int c = 0; c < 50; c++) printf("\n");
+    system("clear");
     // Print the Guides
     char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("%*c|", BOARD_SIZE, ' ');
@@ -697,7 +700,7 @@ int evaluate_board(int (*board)[BOARD_SIZE]) {
          if (hsum == BOARD_SIZE || vsum == BOARD_SIZE) {
              return 1; // Player 1 wins
          } else if (hsum == -BOARD_SIZE || vsum == -BOARD_SIZE) {
-             return -1; // Player 2 wins
+             return 2; // Player 2 wins
          }
         hsum = 0;
         vsum = 0;
@@ -716,16 +719,23 @@ int evaluate_board(int (*board)[BOARD_SIZE]) {
         }
         dsum = 0;
     }
-    return 0;
+    // Check Draw by checking if the board is full
+    int i, j;
+    for (i = 0; i < BOARD_SIZE; i++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == 0) return 0; // Next Turn
+        }
+    }
+    return -1; // Draw
 }
 
 int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
     /*Returns if turn was successful or not*/
     int i, j;
-    char temp_j[1];
+    char temp_j[2];
     char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     scanf("%1s%d", temp_j, &i);
-    j = temp_j[0] - col_headings[0] - 97; // 97 for ascii reasons
+    j = toupper(temp_j[0]) - col_headings[0];
     i--;
     if (i >= BOARD_SIZE || j >= BOARD_SIZE || i < 0 || j < 0 || board[i][j] != 0) return 0;
     // Set Value depending upon turn
@@ -735,7 +745,6 @@ int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
 
 void tic_tac_toe() {
     int board[BOARD_SIZE][BOARD_SIZE], turn = -1, winner = 0, turn_success;
-    char dump[2];
 
     // Game loop
     while (winner == 0) {
@@ -754,7 +763,14 @@ void tic_tac_toe() {
         }
     }
     print_board(board);
-    printf("Player %d is the winner!", winner);
+    switch (winner) {
+        case 1:
+        case 2:
+            printf("Player %d is the winner!", winner);
+            break;
+        default:
+            printf("Game Draw");
+    }
 }
 
 int main() {

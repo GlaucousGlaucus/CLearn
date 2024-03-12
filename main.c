@@ -495,11 +495,9 @@ void print_choice_name(int choice) {
         case 0:
             printf("Rock");
             break;
-        case -1:
         case 1:
             printf("Paper");
             break;
-        case -2:
         case 2:
             printf("Scissors");
             break;
@@ -534,6 +532,9 @@ void rock_paper_scissors() {
 
         seed = random_int(seed, m, a, c);
         ai_choice = seed % 3;
+        if (ai_choice < 0) {
+            ai_choice *= -1;
+        }
         printf("Computer Chose: ");
         print_choice_name(ai_choice);
         printf("\n");

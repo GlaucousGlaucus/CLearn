@@ -739,9 +739,8 @@ int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
     /*Returns if turn was successful or not*/
     int i, j;
     char temp_j[2];
-    char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     scanf("%1s%d", temp_j, &i);
-    j = toupper(temp_j[0]) - col_headings[0];
+    j = toupper(temp_j[0]) - 'A';
     i--;
     if (i >= BOARD_SIZE || j >= BOARD_SIZE || i < 0 || j < 0 || board[i][j] != 0) return 0;
     // Set Value depending upon turn
@@ -768,9 +767,9 @@ void tic_tac_toe() {
         winner = evaluate_board(board);
         printf("\n");
         if (turn_success) {
-            turn = turn == 1 ? -1 : 1;
+            turn = -turn;
         } else {
-            printf("Please enter a valid move");
+            printf("Please enter a valid move\n");
             getchar();
             getchar();
         }

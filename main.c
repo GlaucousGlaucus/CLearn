@@ -29,6 +29,8 @@ int revenue_eater() {
   return 0;
 }
 
+// ----------------------------------------------------
+
 void winners_eater() {
   int numParticipants = 0;
   int points[] = {0, 1, 2, 3, 3};
@@ -63,6 +65,8 @@ void winners_eater() {
   }
 }
 
+// ----------------------------------------------------
+
 void simple_calculator() {
   int num1;
   int num2;
@@ -90,6 +94,8 @@ void simple_calculator() {
   }
 }
 
+// ----------------------------------------------------
+
 void sum_of_evens() {
   int limit = 100;
   int sum = 0;
@@ -101,6 +107,8 @@ void sum_of_evens() {
   }
   printf("Sum of Even Numbers: %d\n", sum);
 }
+
+// ----------------------------------------------------
 
 void grade_system() {
   char grade;
@@ -125,6 +133,8 @@ void grade_system() {
   printf("Score: %.2f\n", avg_score);
   printf("Grade: %c\n", grade);
 }
+
+// ----------------------------------------------------
 
 void polar_rectangle_converter() {
   /* Converts polar form to rectangular form and vice a versa.
@@ -165,6 +175,8 @@ void polar_rectangle_converter() {
   getchar();
 }
 
+// ----------------------------------------------------
+
 void fibonacci_gen_limit(int limit) {
   int a = 0;
   int b = 1;
@@ -178,6 +190,8 @@ void fibonacci_gen_limit(int limit) {
   }
   printf("\n");
 }
+
+// ----------------------------------------------------
 
 int is_prime(int num) {
   for (int i = 2; i < num; i++) {
@@ -198,6 +212,8 @@ void prime_gen(int limit) {
   }
   printf("\n");
 }
+
+// ----------------------------------------------------
 
 void array_reverse() {
   int arr_len = 6;
@@ -222,6 +238,8 @@ void array_reverse() {
   }
 }
 
+// ----------------------------------------------------
+
 int digits_in_num(int num) {
   /*Return the number of digits in the number*/
   // Handle Negative numbers
@@ -235,6 +253,8 @@ int digits_in_num(int num) {
   }
   return digits;
 }
+
+// ----------------------------------------------------
 
 void number_tree(int limit) {
   int num_digits = digits_in_num(limit);
@@ -250,6 +270,8 @@ void number_tree(int limit) {
   }
 }
 
+// ----------------------------------------------------
+
 int armstrong(int num) {
     float sum = 0;
     float numf = num;
@@ -260,6 +282,8 @@ int armstrong(int num) {
     }
     return sum == numf;
 }
+
+// ----------------------------------------------------
 
 int factorial_recursion_loop(int num, int recursion) {
     int factorial = 1;
@@ -274,6 +298,8 @@ int factorial_recursion_loop(int num, int recursion) {
         return factorial;
     }
 }
+
+// ----------------------------------------------------
 
 void quadratic_eqn_solver(double a, double b, double c) {
     double discriminant;
@@ -298,9 +324,13 @@ void quadratic_eqn_solver(double a, double b, double c) {
     }
 }
 
+// ----------------------------------------------------
+
 double arithmetic_series_sum(double a, double d, int n) {
     return n * (2 * a + (n - 1) * d)/2;
 }
+
+// ----------------------------------------------------
 
 double geometric_series_sum(double a, double r, int n) {
     if (n != -1) {
@@ -321,6 +351,8 @@ double geometric_series_sum(double a, double r, int n) {
     return NAN;
 }
 
+// ----------------------------------------------------
+
 void matrix_determinant2x2() {
     int n = 2;
     float matrix[n][n];
@@ -338,6 +370,8 @@ void matrix_determinant2x2() {
     det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     printf("The determinant of matrix is: %f", det);
 }
+
+// ----------------------------------------------------
 
 void matrix_multiplication() {
     // Get input
@@ -393,6 +427,8 @@ void matrix_multiplication() {
 
 }
 
+// ----------------------------------------------------
+
 int binary_to_decimal(int bin_num) {
     int decimal = 0;
     int place = 0;
@@ -406,9 +442,13 @@ int binary_to_decimal(int bin_num) {
     return decimal;
 }
 
+// ----------------------------------------------------
+
 int leap_year(int year) {
     return year % 4 == 0;
 }
+
+// ----------------------------------------------------
 
 void max_array() {
     // Input array
@@ -430,6 +470,8 @@ void max_array() {
     printf("The Largest value in the array is %lf at index %d", max, max_ind);
 }
 
+// ----------------------------------------------------
+
 int palindrome_check(char string[]) {
     unsigned long len = strlen(string) - 1;
     for (int i = 0; i <= len; i++) {
@@ -439,6 +481,8 @@ int palindrome_check(char string[]) {
     }
     return 1;
 }
+
+// ----------------------------------------------------
 
 int random_int(int seed, int m, int a, int c) {
     /*This is a Linear Congruential (Pseudo) Random Number Generator*/
@@ -563,6 +607,8 @@ void rock_paper_scissors() {
     }
 }
 
+// ----------------------------------------------------
+
 int greatest_common_factor(int num1, int num2) {
     while(num2 != 0) {
         int temp = num2;
@@ -596,6 +642,8 @@ void fraction_representation(double decimal) {
     numerator -= denominator * whole;
     printf("%d %d/%d\n", whole, numerator, denominator);
 }
+
+// TODO:
 
 int main() {
 //   revenue_eater();

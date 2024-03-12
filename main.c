@@ -563,6 +563,40 @@ void rock_paper_scissors() {
     }
 }
 
+int greatest_common_factor(int num1, int num2) {
+    while(num2 != 0) {
+        int temp = num2;
+        num2 = num1 % num2;
+        num1 = temp;
+    }
+    return num1;
+}
+
+int gcf_array(int *nums) {
+    int gcf = nums[0], size = sizeof(&nums)/sizeof(nums[0]);
+    for (int i = 1; i < size; i++) {
+        gcf = greatest_common_factor(gcf, nums[i]);
+    }
+    return gcf;
+}
+
+void fraction_representation(double decimal) {
+    int numerator, denominator, whole, order = 0, diff;
+    printf("Fractional Representation of %f is ", decimal);
+    while (decimal - (int) decimal != 0) {
+        decimal *= 10;
+        order++;
+    }
+    denominator = pow(10, order);
+    numerator = (int) decimal;
+    diff = greatest_common_factor(numerator, denominator);
+    numerator /= diff;
+    denominator /= diff;
+    whole = numerator / denominator;
+    numerator -= denominator * whole;
+    printf("%d %d/%d\n", whole, numerator, denominator);
+}
+
 int main() {
 //   revenue_eater();
 //   winners_eater();
@@ -598,7 +632,9 @@ int main() {
 //    printf("%d\n", palindrome_check("madm")); // False
 
 //    printf("%d", random_int(123));
-    rock_paper_scissors();
+//    rock_paper_scissors();
+
+//    fraction_representation(1.625);
 
     return 0;
 }

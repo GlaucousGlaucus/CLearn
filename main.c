@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <curses.h>
 
 #define PI 3.14
 
@@ -646,6 +647,115 @@ void fraction_representation(double decimal) {
 }
 
 // ----------------------------------------------------
+#define BOARD_SIZE 3
+
+void print_board(int (*board)[BOARD_SIZE]) {
+    // Clear Screen
+    for (int c = 0; c < 50; c++) printf("\n");
+    // Print the Guides
+    char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    printf("%*c|", BOARD_SIZE, ' ');
+
+    for (int c = 0; c < BOARD_SIZE; c++) {
+        printf( "  %c  ", col_headings[c]);
+    }
+
+    printf("\n%.*s\n", BOARD_SIZE * (1 + 4 + 1), "----------------------");
+
+    // Print the Board
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        // Print Row Number
+        printf("%d  ", i + 1);
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (j == 0) {
+                printf("|");
+            }
+            if (board[i][j] == 1) {
+                printf("  X  ");
+            } else if (board[i][j] == -1) {
+                printf("  O  ");
+            } else {
+                printf("     ");
+            }
+        }
+        printf("\n");
+        if (i >= 0 && i < BOARD_SIZE - 1) {
+            printf("---\n");
+        }
+    }
+}
+
+int evaluate_board(int (*board)[BOARD_SIZE]) {
+    int hsum = 0, vsum = 0, dsum = 0, turn_eval;
+    // Check Horizontal
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            hsum += board[i][j];
+            vsum += board[j][i];
+        }
+        // Check Win
+         if (hsum == BOARD_SIZE || vsum == BOARD_SIZE) {
+             return 1; // Player 1 wins
+         } else if (hsum == -BOARD_SIZE || vsum == -BOARD_SIZE) {
+             return -1; // Player 2 wins
+         }
+        hsum = 0;
+        vsum = 0;
+    }
+
+    // Check Diagonal
+    for (int dir = 0; dir < 2; dir++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            dsum += board[i][dir == 0 ? i : BOARD_SIZE - i - 1];
+        }
+        // Check Win
+        if (dsum == BOARD_SIZE) {
+            return 1; // Player 1 wins
+        } else if (dsum == -BOARD_SIZE) {
+            return -1; // Player 2 wins
+        }
+        dsum = 0;
+    }
+    return 0;
+}
+
+int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
+    /*Returns if turn was successful or not*/
+    int i, j;
+    char temp_j[1];
+    char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    scanf("%1s%d", temp_j, &i);
+    j = temp_j[0] - col_headings[0] - 97; // 97 for ascii reasons
+    i--;
+    if (i >= BOARD_SIZE || j >= BOARD_SIZE || i < 0 || j < 0 || board[i][j] != 0) return 0;
+    // Set Value depending upon turn
+    board[i][j] = turn;
+    return 1;
+}
+
+void tic_tac_toe() {
+    int board[BOARD_SIZE][BOARD_SIZE], turn = -1, winner = 0, turn_success;
+    char dump[2];
+
+    // Game loop
+    while (winner == 0) {
+        // Input Move
+        print_board(board);
+        printf("\nPlayer %d's turn\nSelect Cell: ", turn);
+        turn_success = evaluate_action(board, turn);
+        winner = evaluate_board(board);
+        printf("\n");
+        if (turn_success) {
+            turn = turn == 1 ? -1 : 1;
+        } else {
+            printf("Please enter a valid move");
+            getchar();
+            getchar();
+        }
+    }
+    print_board(board);
+    printf("Player %d is the winner!", winner);
+}
 
 int main() {
 //   revenue_eater();
@@ -684,7 +794,8 @@ int main() {
 //    printf("%d", random_int(123));
 //    rock_paper_scissors();
 
-    fraction_representation(1.32);
+//    fraction_representation(1.32);
+    tic_tac_toe();
 
     return 0;
 }

@@ -626,24 +626,26 @@ int gcf_array(int *nums) {
     return gcf;
 }
 
+// ----------------------------------------------------
+
 void fraction_representation(double decimal) {
-    int numerator, denominator, whole, order = 0, diff;
-    printf("Fractional Representation of %f is ", decimal);
-    while (decimal - (int) decimal != 0) {
-        decimal *= 10;
-        order++;
-    }
+    int numerator, denominator, whole, order = 7, diff;
+    printf("Fractional Representation of %f is \n", decimal);
     denominator = pow(10, order);
+    decimal *= denominator;
     numerator = (int) decimal;
     diff = greatest_common_factor(numerator, denominator);
     numerator /= diff;
     denominator /= diff;
     whole = numerator / denominator;
     numerator -= denominator * whole;
-    printf("%d %d/%d\n", whole, numerator, denominator);
+    printf("%*c %d\n", digits_in_num(whole) + 1, ' ', numerator);
+    printf("%d %*c", whole, digits_in_num(whole), ' ');
+    for (int i = 0; i < (digits_in_num(numerator) + digits_in_num(denominator))/2; i++) printf("-");
+    printf("\n%*c %d", digits_in_num(whole) + 1, ' ', denominator);
 }
 
-// TODO:
+// ----------------------------------------------------
 
 int main() {
 //   revenue_eater();
@@ -682,7 +684,7 @@ int main() {
 //    printf("%d", random_int(123));
 //    rock_paper_scissors();
 
-//    fraction_representation(1.625);
+    fraction_representation(1.32);
 
     return 0;
 }

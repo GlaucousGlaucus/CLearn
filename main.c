@@ -649,7 +649,7 @@ void fraction_representation(double decimal) {
 }
 
 // ----------------------------------------------------
-#define BOARD_SIZE 3
+#define BOARD_SIZE 4
 
 void print_board(int (*board)[BOARD_SIZE]) {
     // Clear Screen
@@ -737,6 +737,7 @@ int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
     scanf("%1s%d", temp_j, &i);
     j = toupper(temp_j[0]) - col_headings[0];
     i--;
+    printf("%d %d %d", i, j, board[i][j]);
     if (i >= BOARD_SIZE || j >= BOARD_SIZE || i < 0 || j < 0 || board[i][j] != 0) return 0;
     // Set Value depending upon turn
     board[i][j] = turn;
@@ -745,6 +746,13 @@ int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
 
 void tic_tac_toe() {
     int board[BOARD_SIZE][BOARD_SIZE], turn = -1, winner = 0, turn_success;
+
+    // Set Board Values to prevent any garbage values
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            board[i][j] = 0;
+        }
+    }
 
     // Game loop
     while (winner == 0) {

@@ -651,10 +651,16 @@ void fraction_representation(double decimal) {
 // ----------------------------------------------------
 #define BOARD_SIZE 4
 
-void print_board(int (*board)[BOARD_SIZE]) {
-    // Clear Screen
-//    for (int c = 0; c < 50; c++) printf("\n");
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
     system("clear");
+#endif
+}
+
+void print_board(int (*board)[BOARD_SIZE]) {
+    clearScreen();
     // Print the Guides
     char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("%*c|", BOARD_SIZE, ' ');
@@ -737,7 +743,6 @@ int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
     scanf("%1s%d", temp_j, &i);
     j = toupper(temp_j[0]) - col_headings[0];
     i--;
-    printf("%d %d %d", i, j, board[i][j]);
     if (i >= BOARD_SIZE || j >= BOARD_SIZE || i < 0 || j < 0 || board[i][j] != 0) return 0;
     // Set Value depending upon turn
     board[i][j] = turn;

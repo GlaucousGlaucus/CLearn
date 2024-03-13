@@ -372,6 +372,16 @@ void matrix_determinant2x2() {
 
 // ----------------------------------------------------
 
+void print_matrix(float *matrix, int m, int n) {
+    for (int i = 0; i < n; i++) {
+        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
+        for (int j = 0; j < m; j++) {
+            printf("%20.2f ", matrix[i * m + j]);
+        }
+        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
+    }
+}
+
 void matrix_multiplication() {
     // Get input
     int max_order = 5;
@@ -416,14 +426,7 @@ void matrix_multiplication() {
 
     // Print Matrix
     printf("The Product Matrix:\n");
-    for (int i = 0; i < n; i++) {
-        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
-        for (int j = 0; j < m; j++) {
-            printf("%20.2f ", product_matrix[i][j]);
-        }
-        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
-    }
-
+    print_matrix((float *) product_matrix, m, n);
 }
 
 // ----------------------------------------------------
@@ -805,7 +808,7 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-//    matrix_multiplication();
+    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);
@@ -819,7 +822,7 @@ int main() {
 //    rock_paper_scissors();
 
 //    fraction_representation(1.32);
-    tic_tac_toe();
+//    tic_tac_toe();
 
     return 0;
 }

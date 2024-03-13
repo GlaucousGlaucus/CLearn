@@ -39,7 +39,7 @@ void winners_eater() {
   printf("Enter Number of Participants: ");
   scanf("%d", &numParticipants);
 
-  if (numParticipants <= 1) {
+  if (numParticipants < 2) {
     printf("Invalid number of participants.\nThere must be at least 2 "
            "participants\n");
   } else {
@@ -139,21 +139,21 @@ void polar_rectangle_converter() {
   /* Converts polar form to rectangular form and vice a versa.
    * Auto Detects whether the input is in polar or rectangular form.*/
   char input[100+1];
-  float real, imag, angle, magnitude;
+  double real, imag, angle, magnitude;
   char operator;
   int flag, type;
   printf("This program will auto detect the expression as rectangular or polar form and convert to polar and rectangular forms respectively. \nEnter Expression to convert: ");
   fgets(input, sizeof(input), stdin);
 
-  flag = sscanf(input, "%f %c j%f", &real, &operator, & imag);
-  flag |= sscanf(input, "%f %c %fj", &real, &operator, & imag);
+  flag = sscanf(input, "%lf %c j%lf", &real, &operator, & imag);
+  flag |= sscanf(input, "%lf %c %lfj", &real, &operator, & imag);
 
   if (flag == 3 && (operator== '+' || operator== '-')) {
       // Rectangular form
       type = 0;
       magnitude = sqrt(pow(real, 2) + pow(imag, 2));
       angle = atan2(imag, real) * (180/PI);
-  } else if (sscanf(input, "%f < %f", &magnitude, &angle) == 2) {
+  } else if (sscanf(input, "%lf < %lf", &magnitude, &angle) == 2) {
       // Polar form
       type = 1;
       angle *= PI / 180;
@@ -286,10 +286,10 @@ int armstrong(int num) {
 
 int factorial_recursion_loop(int num, int recursion) {
     int factorial = 1;
-    if (recursion) {
+    if (recursion) { // Use Recursive method
         if (num == 1 || num == 0) return 1;
         return num * factorial_recursion_loop(num - 1, 1);
-    } else {
+    } else { // Use loops
         while (num != 1) {
             factorial *= num;
             num--;
@@ -795,7 +795,7 @@ int main() {
 //   prime_gen(50);
 //   array_reverse();
 //   char str[] = "";
-//   number_tree(3);
+//   number_tree(30);
 
 //   int num;
 //   scanf("%d", &num);
@@ -808,7 +808,7 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-    matrix_multiplication();
+//    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);

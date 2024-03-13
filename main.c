@@ -774,10 +774,10 @@ void tic_tac_toe() {
     switch (winner) {
         case 1:
         case 2:
-            printf("Player %d is the winner!", winner);
+            printf("Player %d is the winner!\n", winner);
             break;
         default:
-            printf("Game Draw");
+            printf("Game Draw\n");
     }
 }
 

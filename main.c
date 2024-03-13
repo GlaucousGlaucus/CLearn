@@ -352,23 +352,42 @@ double geometric_series_sum(double a, double r, int n) {
 
 // ----------------------------------------------------
 
-void matrix_determinant2x2() {
-    int n = 2;
-    float matrix[n][n];
-    float det;
-    // Matrix Input
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("A%d%d: ", i+1, j+1);
-            scanf("%f", &(matrix[i][j]));
-        }
-    }
-
-    // Determinant
-    // Expand along the top row
-    det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-    printf("The determinant of matrix is: %f", det);
-}
+//int helper_2d1d(int row, int column, int columns) {
+//    return row * columns + column;
+//}
+//
+//double determinant(double *matrix, int n) {
+//    int det;
+//    if (n == 2) {
+//        return matrix[0] * matrix[3] - matrix[1] * matrix[2];
+//    } else {
+//
+//        return det;
+//    }
+//}
+//
+//void matrix_determinant() {
+//    int n;
+//    printf("Enter The Matrix Order: ");
+//    scanf("%d", &n);
+//    if (n < 2) {
+//        printf("Please Enter a Valid Matrix order");
+//        return;
+//    }
+//    double matrix[n][n];
+//    double det;
+//    // Matrix Input
+//    for (int i = 0; i < n; i++) {
+//        for (int j = 0; j < n; j++) {
+//            printf("A%d%d: ", i+1, j+1);
+//            scanf("%lf", &(matrix[i][j]));
+//        }
+//    }
+//
+//    // Determinant
+//    det = determinant((double *) matrix, n);
+//    printf("The determinant of matrix is: %f", det);
+//}
 
 // ----------------------------------------------------
 
@@ -817,7 +836,7 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-    matrix_multiplication();
+//    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);

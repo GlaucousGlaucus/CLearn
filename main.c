@@ -406,6 +406,8 @@ void matrix_multiplication() {
             scanf("%f", &(matrix1[i][j]));
         }
     }
+    printf("Matrix A is:\n");
+    print_matrix((float *) matrix1, p, n);
     // Matrix B
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < m; j++) {
@@ -413,6 +415,8 @@ void matrix_multiplication() {
             scanf("%f", &(matrix2[i][j]));
         }
     }
+    printf("Matrix B is:\n");
+    print_matrix((float *) matrix2, p, m);
 
     // Calculate Product
     for (int i = 0; i < n; i++) {
@@ -425,7 +429,7 @@ void matrix_multiplication() {
     }
 
     // Print Matrix
-    printf("The Product Matrix:\n");
+    printf("The Product Matrix (A x B) is:\n");
     print_matrix((float *) product_matrix, m, n);
 }
 
@@ -648,6 +652,7 @@ void fraction_representation(double decimal) {
 }
 
 // ----------------------------------------------------
+
 #define BOARD_SIZE 4
 
 void clearScreen() {
@@ -784,6 +789,10 @@ void tic_tac_toe() {
     }
 }
 
+// ----------------------------------------------------
+
+
+
 int main() {
 //   revenue_eater();
 //   winners_eater();
@@ -808,7 +817,7 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-//    matrix_multiplication();
+    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);

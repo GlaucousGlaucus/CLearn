@@ -196,7 +196,79 @@ void padovan_gen_limit(int limit) {
 
 // ----------------------------------------------------
 
+void volume_calc() {
+    int choice;
+    double length, width, height, radius, base, side, a, b, c;
 
+    printf("Select the shape to calculate volume:\n");
+    printf("1. Rectangular Solid or Cuboid\n");
+    printf("2. Cube\n");
+    printf("3. Cylinder\n");
+    printf("4. Prism\n");
+    printf("5. Sphere\n");
+    printf("6. Pyramid\n");
+    printf("7. Right Circular Cone\n");
+    printf("8. Square or Rectangular Pyramid\n");
+    printf("9. Ellipsoid\n");
+    printf("10. Tetrahedron\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1: // Rectangular Solid or Cuboid
+            printf("Enter length, width, and height: ");
+            scanf("%lf, %lf, %lf", &length, &width, &height);
+            printf("Volume: %.2f\n", length * width * height);
+            break;
+        case 2: // Cube
+            printf("Enter length of side: ");
+            scanf("%lf", &side);
+            printf("Volume: %.2f\n", pow(side, 3));
+            break;
+        case 3: // Cylinder
+            printf("Enter radius and height: ");
+            scanf("%lf, %lf", &radius, &height);
+            printf("Volume: %.2f\n", PI * pow(radius, 2) * height);
+            break;
+        case 4: // Prism
+            printf("Enter base area and height: ");
+            scanf("%lf, %lf", &base, &height);
+            printf("Volume: %.2f\n", base * height);
+            break;
+        case 5: // Sphere
+            printf("Enter radius: ");
+            scanf("%lf", &radius);
+            printf("Volume: %.2f\n", (4.0/3.0) * PI * pow(radius, 3));
+            break;
+        case 6: // Pyramid
+            printf("Enter base area and height: ");
+            scanf("%lf, %lf", &base, &height);
+            printf("Volume: %.2f\n", (1.0/3.0) * base * height);
+            break;
+        case 7: // Right Circular Cone
+            printf("Enter radius and height: ");
+            scanf("%lf, %lf", &radius, &height);
+            printf("Volume: %.2f\n", (1.0/3.0) * PI * pow(radius, 2) * height);
+            break;
+        case 8: // Square or Rectangular Pyramid
+            printf("Enter length, width, and height: ");
+            scanf("%lf, %lf, %lf", &length, &width, &height);
+            printf("Volume: %.2f\n", (1.0/3.0) * length * width * height);
+            break;
+        case 9: // Ellipsoid
+            printf("Enter semi-axes a, b, and c: ");
+            scanf("%lf, %lf, %lf", &a, &b, &c);
+            printf("Volume: %.2f\n", (4.0/3.0) * PI * a * b * c);
+            break;
+        case 10: // Tetrahedron
+            printf("Enter length of edge: ");
+            scanf("%lf", &side);
+            printf("Volume: %.2f\n", pow(side, 3) / (6 * sqrt(2)));
+            break;
+        default:
+            printf("Invalid choice!\n");
+    }
+}
 
 // ----------------------------------------------------
 
@@ -1030,5 +1102,7 @@ int main() {
 
 //    temperature_conversion();
 //    padovan_gen_limit(50);
+
+    volume_calc();
     return 0;
 }

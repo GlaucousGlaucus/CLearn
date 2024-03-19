@@ -182,6 +182,24 @@ void temperature_conversion() {
 
 // ----------------------------------------------------
 
+int padovan_term(int n) {
+    if (n < 0) return -1;
+    if (n == 0 || n == 1 || n == 2) return 1;
+    return padovan_term(n - 2) + padovan_term(n - 3);
+}
+
+void padovan_gen_limit(int limit) {
+    for (int i = 0; i < limit; i++) {
+        printf("%d ", padovan_term(i));
+    }
+}
+
+// ----------------------------------------------------
+
+
+
+// ----------------------------------------------------
+
 void polar_rectangle_converter() {
   /* Converts polar form to rectangular form and vice a versa.
    * Auto Detects whether the input is in polar or rectangular form.*/
@@ -1010,7 +1028,7 @@ int main() {
 
 //dice_roller();
 
-    temperature_conversion();
-
+//    temperature_conversion();
+//    padovan_gen_limit(50);
     return 0;
 }

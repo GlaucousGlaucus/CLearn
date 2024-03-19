@@ -513,6 +513,22 @@ int random_int(int seed, int m, int a, int c) {
     return (a * seed + c) % m;
 }
 
+// ---------------------------------------------------
+
+void dice_roller() {
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, roll;
+
+    printf("Enter any number: ");
+    scanf("%d", &seed);
+    seed = random_int(seed, m, a, c);
+    roll = seed % 6;
+    if (roll < 0) roll *= -1;
+    roll++;
+    printf("The Dice rolled a %d", roll);
+}
+
+// ---------------------------------------------------
+
 int turn_eval(int p1, int p2) {
     /*
      * Rock : 0 Paper : 1 Scissors: 2
@@ -901,6 +917,9 @@ void day_from_date(int day, int month, int year) {
     }
 }
 
+// -----------------------------------------------------
+
+
 
 int main() {
 //   revenue_eater();
@@ -941,7 +960,9 @@ int main() {
 
 //    fraction_representation(1.32);
 //    tic_tac_toe();
-    day_from_date(17, 3, 2024);
+//    day_from_date(17, 3, 2024);
+
+dice_roller();
 
     return 0;
 }

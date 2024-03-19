@@ -689,15 +689,24 @@ int random_int(int seed, int m, int a, int c) {
 // ---------------------------------------------------
 
 void dice_roller() {
-    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, roll;
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed,
+    roll, target_roll;
 
     printf("Enter any number: ");
     scanf("%d", &seed);
     seed = random_int(seed, m, a, c);
     roll = seed % 6;
+    target_roll = random_int(seed, m, a, c) % 6;
     if (roll < 0) roll *= -1;
     roll++;
-    printf("The Dice rolled a %d", roll);
+    if (target_roll < 0) target_roll *= -1;
+    target_roll++;
+        printf("The Dice rolled a %d. The Target was %d\n", roll, target_roll);
+    if (roll == target_roll) {
+        printf("You Won!");
+    } else {
+        printf("You Lost :(");
+    }
 }
 
 // ---------------------------------------------------
@@ -1134,7 +1143,7 @@ int main() {
 //    tic_tac_toe();
 //    day_from_date(17, 3, 2024);
 
-//dice_roller();
+    dice_roller();
 
 //    temperature_conversion();
 //    padovan_gen_limit(50);

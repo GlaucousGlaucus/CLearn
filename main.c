@@ -135,6 +135,53 @@ void grade_system() {
 
 // ----------------------------------------------------
 
+void temperature_conversion() {
+    int in_type;
+    double in_value; // Inputs
+    double celsius, fahrenheit, kelvin, rankine, reaumur; // Outputs
+    printf("Index: 0 = C, 1 = F, 2 = K, 3 = Rankine, 4 = Reaumur\n");
+    printf("Enter Input Temperature Type: ");
+    scanf("%d", &in_type);
+    printf("Enter Temperature: ");
+    scanf("%lf", &in_value);
+
+    switch (in_type) {
+        case 0:
+            celsius = in_value;
+            break;
+        case 1: // F to C
+            celsius = (in_value - 32) * 5/9;
+            break;
+        case 2: // K to C
+            celsius = in_value - 273.15;
+            break;
+        case 3: // kine to C
+            celsius = (in_value - 491.67) * 5/9;
+            break;
+        case 4: // Rea
+            celsius = in_value * 1.25;
+            break;
+        default:
+            printf("Invalid Type %d", in_type);
+            return;
+    }
+
+    fahrenheit = (celsius * 9/5) + 32;
+    kelvin = celsius + 273.15;
+    rankine = (celsius * 9/5) + 491.67;
+    reaumur = celsius / 1.25;
+
+    printf("--------- Temperature Table ------------\n");
+    printf("Celsius: %5.2lf\n", celsius);
+    printf("Fahrenheit: %5.2lf\n", fahrenheit);
+    printf("Kelvin: %5.2lf\n", kelvin);
+    printf("Rankine: %5.2lf\n", rankine);
+    printf("Reaumur: %5.2lf\n", reaumur);
+
+}
+
+// ----------------------------------------------------
+
 void polar_rectangle_converter() {
   /* Converts polar form to rectangular form and vice a versa.
    * Auto Detects whether the input is in polar or rectangular form.*/
@@ -920,7 +967,6 @@ void day_from_date(int day, int month, int year) {
 // -----------------------------------------------------
 
 
-
 int main() {
 //   revenue_eater();
 //   winners_eater();
@@ -962,7 +1008,9 @@ int main() {
 //    tic_tac_toe();
 //    day_from_date(17, 3, 2024);
 
-dice_roller();
+//dice_roller();
+
+    temperature_conversion();
 
     return 0;
 }

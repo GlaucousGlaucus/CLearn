@@ -458,7 +458,6 @@ int binary_to_decimal(int bin_num) {
     int decimal = 0;
     int place = 0;
     while (bin_num != 0) {
-//        printf("%d\n", bin_num % 10);
         decimal += (bin_num % 10) * pow(2, place);
         bin_num /= 10;
         place++;
@@ -810,6 +809,97 @@ void tic_tac_toe() {
 
 // ----------------------------------------------------
 
+const char* get_number_suffix(int num) {
+    if (num % 100 / 10 == 1) return "th";
+    switch (num % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
+}
+
+const char* get_month_from_int(int month) {
+    switch (month) {
+        case 0:
+            return "Jan";
+        case 1:
+            return "Feb";
+        case 2:
+            return "Mar";
+        case 3:
+            return "Apr";
+        case 4:
+            return "May";
+        case 5:
+            return "Jun";
+        case 6:
+            return "Jul";
+        case 7:
+            return "Aug";
+        case 8:
+            return "Sep";
+        case 9:
+            return "Oct";
+        case 10:
+            return "Nov";
+        case 11:
+            return "Dec";
+        default:
+            return "Invalid Month";
+    }
+}
+
+void print_pretty_date(int day, int month, int year) {
+    printf("On %d%s of %s %d it was ", day, get_number_suffix(day),
+           get_month_from_int(month), year);
+}
+
+void day_from_date(int day, int month, int year) {
+    /*Prints the day that was on the given date*/
+    int j = year / 100;
+
+    if (month < 3) {
+        month += 12;
+        year --;
+    }
+
+    int weekday =  (day + (13 * (month + 1) / 5) + (year % 100) +
+                    ((year % 100) / 4) + (j / 4) + 5 * j) % 7;
+
+    print_pretty_date(day, month, year);
+
+    switch (weekday) {
+        case 0:
+            printf("Saturday\n");
+            break;
+        case 1:
+            printf("Sunday\n");
+            break;
+        case 2:
+            printf("Monday\n");
+            break;
+        case 3:
+            printf("Tuesday\n");
+            break;
+        case 4:
+            printf("Wednesday\n");
+            break;
+        case 5:
+            printf("Thursday\n");
+            break;
+        case 6:
+            printf("Friday\n");
+            break;
+        default:
+            printf("Error: Invalid day of the week\n");
+            break;
+    }
+}
 
 
 int main() {
@@ -851,6 +941,7 @@ int main() {
 
 //    fraction_representation(1.32);
 //    tic_tac_toe();
+    day_from_date(17, 3, 2024);
 
     return 0;
 }

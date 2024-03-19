@@ -7,130 +7,130 @@
 #define PI 3.14
 
 int revenue_eater() {
-  int apple_qty;
-  int orange_qty;
-  int orange_price;
-  int apple_price;
-  int revenue;
-  printf("--- Revenue Eater V1 ---\n");
-  printf("Apples --\n");
-  printf("Enter Apple Quantity: ");
-  scanf("%d", &apple_qty);
-  printf("Enter Apple Price: $");
-  scanf("%d", &apple_price);
-  printf("Oranges --\n");
-  printf("Enter Orange Quantity: ");
-  scanf("%d", &orange_qty);
-  printf("Enter Orange Price: $");
-  scanf("%d", &orange_price);
-  revenue = apple_qty * apple_price + orange_qty * orange_price;
-  printf("Total Revenue: $%d\n", revenue);
-  return 0;
+    int apple_qty;
+    int orange_qty;
+    int orange_price;
+    int apple_price;
+    int revenue;
+    printf("--- Revenue Eater V1 ---\n");
+    printf("Apples --\n");
+    printf("Enter Apple Quantity: ");
+    scanf("%d", &apple_qty);
+    printf("Enter Apple Price: $");
+    scanf("%d", &apple_price);
+    printf("Oranges --\n");
+    printf("Enter Orange Quantity: ");
+    scanf("%d", &orange_qty);
+    printf("Enter Orange Price: $");
+    scanf("%d", &orange_price);
+    revenue = apple_qty * apple_price + orange_qty * orange_price;
+    printf("Total Revenue: $%d\n", revenue);
+    return 0;
 }
 
 // ----------------------------------------------------
 
 void winners_eater() {
-  int numParticipants = 0;
-  int points[] = {0, 1, 2, 3, 3};
-  int highest_point = 0;
-  int winners = 0;
-  printf("--- Winners Eater V1 ---\n");
-  printf("Enter Number of Participants: ");
-  scanf("%d", &numParticipants);
+    int numParticipants = 0;
+    int points[] = {0, 1, 2, 3, 3};
+    int highest_point = 0;
+    int winners = 0;
+    printf("--- Winners Eater V1 ---\n");
+    printf("Enter Number of Participants: ");
+    scanf("%d", &numParticipants);
 
-  if (numParticipants < 2) {
-    printf("Invalid number of participants.\nThere must be at least 2 "
-           "participants\n");
-  } else {
-    for (int i = 0; i < numParticipants; i++) {
-      printf("Participant %d\n", i + 1);
-      printf("Enter Points: ");
-      scanf("%d", &points[i]);
-      if (i == 0 || (i > 0 && points[i] > points[i - 1])) {
-          highest_point = points[i];
-      }
+    if (numParticipants < 2) {
+        printf("Invalid number of participants.\nThere must be at least 2 "
+               "participants\n");
+    } else {
+        for (int i = 0; i < numParticipants; i++) {
+            printf("Participant %d\n", i + 1);
+            printf("Enter Points: ");
+            scanf("%d", &points[i]);
+            if (i == 0 || (i > 0 && points[i] > points[i - 1])) {
+                highest_point = points[i];
+            }
+        }
+        // Calculate the winner's points
+        for (int i = 0; i < numParticipants; i++) {
+            if (points[i] == highest_point) {
+                winners += 1;
+                printf("The Winner is Participant: %d\n", i + 1);
+            }
+            if (winners > 1) {
+                printf("\nThere is a TIE!\n");
+            }
+        }
     }
-    // Calculate the winner's points
-    for (int i = 0; i < numParticipants; i++) {
-      if (points[i] == highest_point) {
-        winners += 1;
-        printf("The Winner is Participant: %d\n", i+1);
-      }
-      if (winners > 1) {
-        printf("\nThere is a TIE!\n");
-      }
-    }
-  }
 }
 
 // ----------------------------------------------------
 
 void simple_calculator() {
-  int num1;
-  int num2;
-  char operation;
-  printf("--- Simple Calculator V1 ---\n");
-  printf("Enter two numbers: ");
-  scanf("%d %d", &num1, &num2);
-  printf("Enter an operation: \n");
-  scanf(" %c", &operation);
-  switch (operation) {
-    case '+':
-      printf("%d + %d = %d\n", num1, num2, num1 + num2);
-      break;
-    case '-':
-      printf("%d - %d = %d\n", num1, num2, num1 - num2);
-      break;
-    case '*':
-      printf("%d * %d = %d\n", num1, num2, num1 * num2);
-      break;
-    case '/':
-      printf("%d / %d = %d\n", num1, num2, num1 / num2);
-      break;
-    default:
-      printf("Invalid operation\n");
-  }
+    int num1;
+    int num2;
+    char operation;
+    printf("--- Simple Calculator V1 ---\n");
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
+    printf("Enter an operation: \n");
+    scanf(" %c", &operation);
+    switch (operation) {
+        case '+':
+            printf("%d + %d = %d\n", num1, num2, num1 + num2);
+            break;
+        case '-':
+            printf("%d - %d = %d\n", num1, num2, num1 - num2);
+            break;
+        case '*':
+            printf("%d * %d = %d\n", num1, num2, num1 * num2);
+            break;
+        case '/':
+            printf("%d / %d = %d\n", num1, num2, num1 / num2);
+            break;
+        default:
+            printf("Invalid operation\n");
+    }
 }
 
 // ----------------------------------------------------
 
 void sum_of_evens() {
-  int limit = 100;
-  int sum = 0;
-  printf("--- Sum of Even Numbers V1 ---\n");
-  for (int i = 1; i <= limit; i++) {
-    if (i % 2 == 0) {
-      sum += i;
+    int limit = 100;
+    int sum = 0;
+    printf("--- Sum of Even Numbers V1 ---\n");
+    for (int i = 1; i <= limit; i++) {
+        if (i % 2 == 0) {
+            sum += i;
+        }
     }
-  }
-  printf("Sum of Even Numbers: %d\n", sum);
+    printf("Sum of Even Numbers: %d\n", sum);
 }
 
 // ----------------------------------------------------
 
 void grade_system() {
-  char grade;
-  float avg_score = 0;
-  char subjects[][100] = {"Math", "Science", "English"};
-  for (int i = 0; i < 3; i++) {
-    int score = 0;
-    printf("Enter Score for %s: ", subjects[i]);
-    scanf(" %d", &score);
-    avg_score += score;
-  }
-  avg_score /= 3;
-  if (avg_score >= 90) {
-      grade = 'A';
-    } else if (avg_score >= 80 && avg_score < 90) {
-      grade = 'B';
-    } else if (avg_score >= 70 && avg_score < 80) {
-      grade = 'C';
-    } else {
-      grade = 'F';
+    char grade;
+    float avg_score = 0;
+    char subjects[][100] = {"Math", "Science", "English"};
+    for (int i = 0; i < 3; i++) {
+        int score = 0;
+        printf("Enter Score for %s: ", subjects[i]);
+        scanf(" %d", &score);
+        avg_score += score;
     }
-  printf("Score: %.2f\n", avg_score);
-  printf("Grade: %c\n", grade);
+    avg_score /= 3;
+    if (avg_score >= 90) {
+        grade = 'A';
+    } else if (avg_score >= 80 && avg_score < 90) {
+        grade = 'B';
+    } else if (avg_score >= 70 && avg_score < 80) {
+        grade = 'C';
+    } else {
+        grade = 'F';
+    }
+    printf("Score: %.2f\n", avg_score);
+    printf("Grade: %c\n", grade);
 }
 
 // ----------------------------------------------------
@@ -150,13 +150,13 @@ void temperature_conversion() {
             celsius = in_value;
             break;
         case 1: // F to C
-            celsius = (in_value - 32) * 5/9;
+            celsius = (in_value - 32) * 5 / 9;
             break;
         case 2: // K to C
             celsius = in_value - 273.15;
             break;
         case 3: // kine to C
-            celsius = (in_value - 491.67) * 5/9;
+            celsius = (in_value - 491.67) * 5 / 9;
             break;
         case 4: // Rea
             celsius = in_value * 1.25;
@@ -166,9 +166,9 @@ void temperature_conversion() {
             return;
     }
 
-    fahrenheit = (celsius * 9/5) + 32;
+    fahrenheit = (celsius * 9 / 5) + 32;
     kelvin = celsius + 273.15;
-    rankine = (celsius * 9/5) + 491.67;
+    rankine = (celsius * 9 / 5) + 491.67;
     reaumur = celsius / 1.25;
 
     printf("--------- Temperature Table ------------\n");
@@ -214,7 +214,7 @@ void volume_calc() {
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
-    switch(choice) {
+    switch (choice) {
         case 1: // Rectangular Solid or Cuboid
             printf("Enter length, width, and height: ");
             scanf("%lf, %lf, %lf", &length, &width, &height);
@@ -238,27 +238,27 @@ void volume_calc() {
         case 5: // Sphere
             printf("Enter radius: ");
             scanf("%lf", &radius);
-            printf("Volume: %.2f\n", (4.0/3.0) * PI * pow(radius, 3));
+            printf("Volume: %.2f\n", (4.0 / 3.0) * PI * pow(radius, 3));
             break;
         case 6: // Pyramid
             printf("Enter base area and height: ");
             scanf("%lf, %lf", &base, &height);
-            printf("Volume: %.2f\n", (1.0/3.0) * base * height);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * base * height);
             break;
         case 7: // Right Circular Cone
             printf("Enter radius and height: ");
             scanf("%lf, %lf", &radius, &height);
-            printf("Volume: %.2f\n", (1.0/3.0) * PI * pow(radius, 2) * height);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * PI * pow(radius, 2) * height);
             break;
         case 8: // Square or Rectangular Pyramid
             printf("Enter length, width, and height: ");
             scanf("%lf, %lf, %lf", &length, &width, &height);
-            printf("Volume: %.2f\n", (1.0/3.0) * length * width * height);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * length * width * height);
             break;
         case 9: // Ellipsoid
             printf("Enter semi-axes a, b, and c: ");
             scanf("%lf, %lf, %lf", &a, &b, &c);
-            printf("Volume: %.2f\n", (4.0/3.0) * PI * a * b * c);
+            printf("Volume: %.2f\n", (4.0 / 3.0) * PI * a * b * c);
             break;
         case 10: // Tetrahedron
             printf("Enter length of edge: ");
@@ -272,138 +272,174 @@ void volume_calc() {
 
 // ----------------------------------------------------
 
+double f(double x) {
+    return x * x;
+}
+
+void derivative_at_x(double x) {
+    double h = 0.01;
+    double der = (f(x + h) - f(x - h)) / (2.0 * h);
+    printf("The Derivative is %f\n", der);
+}
+
+void definite_integration_trapezoidal() {
+    double ret;
+    int lower = 0, upper = 4;
+    ret = (upper - lower) * (f(lower) + f(upper)) / 2;
+    printf("The Definite Integral is: %f\n", ret);
+}
+
+void definite_integral_simpson_3_8() {
+    int intervals = 99999;
+    double lower = 0, upper = 4;
+    double h = (upper - lower) / intervals;
+    double ret = f(lower) + f(lower + intervals * h);
+    for (int i = 1; i < intervals; i++) {
+        if (i % 3 == 0) {
+            ret += 2 * f(lower + i * h);
+        }
+        else {
+            ret += 3 * f(lower + i * h);
+        }
+    }
+    ret *= (3.0 * h) / 8.0;
+    printf("The Definite Integral is: %f", ret);
+}
+
+// ----------------------------------------------------
+
 void polar_rectangle_converter() {
-  /* Converts polar form to rectangular form and vice a versa.
-   * Auto Detects whether the input is in polar or rectangular form.*/
-  char input[100+1];
-  double real, imag, angle, magnitude;
-  char operator;
-  int flag, type;
-  printf("This program will auto detect the expression as rectangular or polar form and convert to polar and rectangular forms respectively. \nEnter Expression to convert: ");
-  fgets(input, sizeof(input), stdin);
+    /* Converts polar form to rectangular form and vice a versa.
+     * Auto Detects whether the input is in polar or rectangular form.*/
+    char input[100 + 1];
+    double real, imag, angle, magnitude;
+    char operator;
+    int flag, type;
+    printf("This program will auto detect the expression as rectangular or polar form and convert to polar and rectangular forms respectively. \nEnter Expression to convert: ");
+    fgets(input, sizeof(input), stdin);
 
-  flag = sscanf(input, "%lf %c j%lf", &real, &operator, & imag);
-  flag |= sscanf(input, "%lf %c %lfj", &real, &operator, & imag);
+    flag = sscanf(input, "%lf %c j%lf", &real, &operator, &imag);
+    flag |= sscanf(input, "%lf %c %lfj", &real, &operator, &imag);
 
-  if (flag == 3 && (operator== '+' || operator== '-')) {
-      // Rectangular form
-      type = 0;
-      magnitude = sqrt(pow(real, 2) + pow(imag, 2));
-      angle = atan2(imag, real) * (180/PI);
-  } else if (sscanf(input, "%lf < %lf", &magnitude, &angle) == 2) {
-      // Polar form
-      type = 1;
-      angle *= PI / 180;
-      real = magnitude * cos(angle);
-      imag = magnitude * sin(angle);
-      operator = imag >= 0 ? '+' : '-';
-      imag *= imag >= 0 ? 1 : -1;
-  } else {
-      type = -1;
-  }
+    if (flag == 3 && (operator == '+' || operator == '-')) {
+        // Rectangular form
+        type = 0;
+        magnitude = sqrt(pow(real, 2) + pow(imag, 2));
+        angle = atan2(imag, real) * (180 / PI);
+    } else if (sscanf(input, "%lf < %lf", &magnitude, &angle) == 2) {
+        // Polar form
+        type = 1;
+        angle *= PI / 180;
+        real = magnitude * cos(angle);
+        imag = magnitude * sin(angle);
+        operator = imag >= 0 ? '+' : '-';
+        imag *= imag >= 0 ? 1 : -1;
+    } else {
+        type = -1;
+    }
 
-  if (type == 1) { // Print the rectangular form from polar form
-      printf("Rectangular form: %.3f %c j%.3f\n", real, operator, imag);
-  } else if (type == 0) { // Print the polar form from rectangular form
-      printf("Radius: %.3f Angle: %.3f\n", magnitude, angle);
-  }
-  printf("Press Any Key To Continue");
-  getchar();
+    if (type == 1) { // Print the rectangular form from polar form
+        printf("Rectangular form: %.3f %c j%.3f\n", real, operator, imag);
+    } else if (type == 0) { // Print the polar form from rectangular form
+        printf("Radius: %.3f Angle: %.3f\n", magnitude, angle);
+    }
+    printf("Press Any Key To Continue");
+    getchar();
 }
 
 // ----------------------------------------------------
 
 void fibonacci_gen_limit(int limit) {
-  int a = 0;
-  int b = 1;
-  printf("%d %d", a, b);
-  while (limit > 0) {
-      int c = a + b;
-      printf(" %d", c);
-      a = b;
-      b = c;
-      limit--;
-  }
-  printf("\n");
+    int a = 0;
+    int b = 1;
+    printf("%d %d", a, b);
+    while (limit > 0) {
+        int c = a + b;
+        printf(" %d", c);
+        a = b;
+        b = c;
+        limit--;
+    }
+    printf("\n");
 }
 
 // ----------------------------------------------------
 
 int is_prime(int num) {
-  for (int i = 2; i < num; i++) {
-      if (num % i == 0) return 0;
-  }
-  return 1;
+    for (int i = 2; i < num; i++) {
+        if (num % i == 0) return 0;
+    }
+    return 1;
 }
 
 void prime_gen(int limit) {
-  int prev = 1;
-  for (int i = 0; i < limit; i++) {
-      for (int j = 2; j < prev; j++) {
-      if (prev % j == 0)
+    int prev = 1;
+    for (int i = 0; i < limit; i++) {
+        for (int j = 2; j < prev; j++) {
+            if (prev % j == 0)
+                prev++;
+        }
+        printf("%d ", prev);
         prev++;
-      }
-    printf("%d ", prev);
-    prev++;
-  }
-  printf("\n");
+    }
+    printf("\n");
 }
 
 // ----------------------------------------------------
 
 void array_reverse() {
-  int arr_len = 6;
-  int arr[arr_len];
-  int temp, pivot;
-  // Create a new array
-  for (int x = 0; x < arr_len; x++) {
-    arr[x] = x * x;
-  }
+    int arr_len = 6;
+    int arr[arr_len];
+    int temp, pivot;
+    // Create a new array
+    for (int x = 0; x < arr_len; x++) {
+        arr[x] = x * x;
+    }
 
-  // Reverse it
-  pivot = arr_len/2;
-  for (int i = 0; i < pivot; i++) {
-    temp = arr[arr_len - i - 1];
-    arr[arr_len - i - 1] = arr[i];
-    arr[i] = temp;
-  }
+    // Reverse it
+    pivot = arr_len / 2;
+    for (int i = 0; i < pivot; i++) {
+        temp = arr[arr_len - i - 1];
+        arr[arr_len - i - 1] = arr[i];
+        arr[i] = temp;
+    }
 
-  // Print it
-  for (int i = 0; i < arr_len; i++) {
-    printf("%d %d\n", arr[i], i);
-  }
+    // Print it
+    for (int i = 0; i < arr_len; i++) {
+        printf("%d %d\n", arr[i], i);
+    }
 }
 
 // ----------------------------------------------------
 
 int digits_in_num(int num) {
-  /*Return the number of digits in the number*/
-  // Handle Negative numbers
-  if (num < 0) {
-    num *= -1;
-  }
-  int digits = 1;
-  while (num / 10 != 0) {
-    digits++;
-    num /= 10;
-  }
-  return digits;
+    /*Return the number of digits in the number*/
+    // Handle Negative numbers
+    if (num < 0) {
+        num *= -1;
+    }
+    int digits = 1;
+    while (num / 10 != 0) {
+        digits++;
+        num /= 10;
+    }
+    return digits;
 }
 
 // ----------------------------------------------------
 
 void number_tree(int limit) {
-  int num_digits = digits_in_num(limit);
-  int factor = num_digits == 1 ? 1 : num_digits;
-  for (int i = 1; i <= limit; i++) {
-    printf("%*s", num_digits * (limit - i), "");
-    // Print the numbers
-    for (int j = 1; j <= i; j++) {
-      printf("%d", i);
-      printf("%*s", num_digits - digits_in_num(i) + factor, "");
+    int num_digits = digits_in_num(limit);
+    int factor = num_digits == 1 ? 1 : num_digits;
+    for (int i = 1; i <= limit; i++) {
+        printf("%*s", num_digits * (limit - i), "");
+        // Print the numbers
+        for (int j = 1; j <= i; j++) {
+            printf("%d", i);
+            printf("%*s", num_digits - digits_in_num(i) + factor, "");
+        }
+        printf("\n");
     }
-    printf("\n");
-  }
 }
 
 // ----------------------------------------------------
@@ -449,13 +485,13 @@ void quadratic_eqn_solver(double a, double b, double c) {
     discriminant = pow(discriminant, 0.5);
 
     if (complex_roots == 1) {
-        roots[0] = (-b / 2*a); // Real Part
-        roots[1] = discriminant / (2*a); // Imaginary Part
+        roots[0] = (-b / 2 * a); // Real Part
+        roots[1] = discriminant / (2 * a); // Imaginary Part
         printf("The roots of the equation %fx^2 + %fx + %f are %f + %f i and %f - %f i",
                a, b, c, roots[0], roots[1], roots[0], roots[1]);
     } else {
-        roots[0] = (-b + discriminant) / (2*a);
-        roots[1] = (-b - discriminant) / (2*a);
+        roots[0] = (-b + discriminant) / (2 * a);
+        roots[1] = (-b - discriminant) / (2 * a);
         printf("The roots of the equation %fx^2 + %fx + %f are %f and %f", a, b, c, roots[0], roots[1]);
     }
 }
@@ -463,7 +499,7 @@ void quadratic_eqn_solver(double a, double b, double c) {
 // ----------------------------------------------------
 
 double arithmetic_series_sum(double a, double d, int n) {
-    return n * (2 * a + (n - 1) * d)/2;
+    return n * (2 * a + (n - 1) * d) / 2;
 }
 
 // ----------------------------------------------------
@@ -558,7 +594,7 @@ void matrix_multiplication() {
     // Matrix A
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < p; j++) {
-            printf("A%d%d: ", i+1, j+1);
+            printf("A%d%d: ", i + 1, j + 1);
             scanf("%f", &(matrix1[i][j]));
         }
     }
@@ -567,7 +603,7 @@ void matrix_multiplication() {
     // Matrix B
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < m; j++) {
-            printf("B%d%d: ", i+1, j+1);
+            printf("B%d%d: ", i + 1, j + 1);
             scanf("%f", &(matrix2[i][j]));
         }
     }
@@ -620,7 +656,7 @@ void max_array() {
     double array[size];
 
     for (int i = 0; i < size; i++) {
-        printf("Element %d: ", i+1);
+        printf("Element %d: ", i + 1);
         scanf("%lf", &array[i]);
         if (array[i] >= max) {
             max = array[i];
@@ -787,7 +823,7 @@ void rock_paper_scissors() {
 // ----------------------------------------------------
 
 int greatest_common_factor(int num1, int num2) {
-    while(num2 != 0) {
+    while (num2 != 0) {
         int temp = num2;
         num2 = num1 % num2;
         num1 = temp;
@@ -796,7 +832,7 @@ int greatest_common_factor(int num1, int num2) {
 }
 
 int gcf_array(int *nums) {
-    int gcf = nums[0], size = sizeof(&nums)/sizeof(nums[0]);
+    int gcf = nums[0], size = sizeof(&nums) / sizeof(nums[0]);
     for (int i = 1; i < size; i++) {
         gcf = greatest_common_factor(gcf, nums[i]);
     }
@@ -818,7 +854,7 @@ void fraction_representation(double decimal) {
     numerator -= denominator * whole;
     printf("%*c %d\n", digits_in_num(whole) + 1, ' ', numerator);
     printf("%d %*c", whole, digits_in_num(whole), ' ');
-    for (int i = 0; i < (digits_in_num(numerator) + digits_in_num(denominator))/2; i++) printf("-");
+    for (int i = 0; i < (digits_in_num(numerator) + digits_in_num(denominator)) / 2; i++) printf("-");
     printf("\n%*c %d", digits_in_num(whole) + 1, ' ', denominator);
 }
 
@@ -841,7 +877,7 @@ void print_board(int (*board)[BOARD_SIZE]) {
     printf("%*c|", BOARD_SIZE, ' ');
 
     for (int c = 0; c < BOARD_SIZE; c++) {
-        printf( "  %c  ", col_headings[c]);
+        printf("  %c  ", col_headings[c]);
     }
 
     printf("\n%.*s\n", BOARD_SIZE * (1 + 4 + 1), "----------------------");
@@ -878,11 +914,11 @@ int evaluate_board(int (*board)[BOARD_SIZE]) {
             vsum += board[j][i];
         }
         // Check Win
-         if (hsum == BOARD_SIZE || vsum == BOARD_SIZE) {
-             return 1; // Player 1 wins
-         } else if (hsum == -BOARD_SIZE || vsum == -BOARD_SIZE) {
-             return 2; // Player 2 wins
-         }
+        if (hsum == BOARD_SIZE || vsum == BOARD_SIZE) {
+            return 1; // Player 1 wins
+        } else if (hsum == -BOARD_SIZE || vsum == -BOARD_SIZE) {
+            return 2; // Player 2 wins
+        }
         hsum = 0;
         vsum = 0;
     }
@@ -962,7 +998,7 @@ void tic_tac_toe() {
 
 // ----------------------------------------------------
 
-const char* get_number_suffix(int num) {
+const char *get_number_suffix(int num) {
     if (num % 100 / 10 == 1) return "th";
     switch (num % 10) {
         case 1:
@@ -976,7 +1012,7 @@ const char* get_number_suffix(int num) {
     }
 }
 
-const char* get_month_from_int(int month) {
+const char *get_month_from_int(int month) {
     switch (month) {
         case 0:
             return "Jan";
@@ -1018,11 +1054,11 @@ void day_from_date(int day, int month, int year) {
 
     if (month < 3) {
         month += 12;
-        year --;
+        year--;
     }
 
-    int weekday =  (day + (13 * (month + 1) / 5) + (year % 100) +
-                    ((year % 100) / 4) + (j / 4) + 5 * j) % 7;
+    int weekday = (day + (13 * (month + 1) / 5) + (year % 100) +
+                   ((year % 100) / 4) + (j / 4) + 5 * j) % 7;
 
     print_pretty_date(day, month, year);
 
@@ -1103,6 +1139,11 @@ int main() {
 //    temperature_conversion();
 //    padovan_gen_limit(50);
 
-    volume_calc();
+//    volume_calc();
+
+//    derivative_at_x(2);
+//    definite_integration_trapezoidal();
+//    definite_integral_simpson_3_8();
+
     return 0;
 }

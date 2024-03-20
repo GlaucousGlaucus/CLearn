@@ -371,7 +371,8 @@ void array_reverse() {
     int temp, pivot;
     // Create a new array
     for (int x = 0; x < arr_len; x++) {
-        arr[x] = x * x;
+        printf("E%d: ", x);
+        scanf("%d", &arr[x]);
     }
 
     // Reverse it
@@ -384,7 +385,7 @@ void array_reverse() {
 
     // Print it
     for (int i = 0; i < arr_len; i++) {
-        printf("%d %d\n", arr[i], i);
+        printf("%d ", arr[i]);
     }
 }
 
@@ -408,13 +409,12 @@ int digits_in_num(int num) {
 
 void number_tree(int limit) {
     int num_digits = digits_in_num(limit);
-    int factor = num_digits == 1 ? 1 : num_digits;
     for (int i = 1; i <= limit; i++) {
         printf("%*s", num_digits * (limit - i), "");
         // Print the numbers
         for (int j = 1; j <= i; j++) {
             printf("%d", i);
-            printf("%*s", num_digits - digits_in_num(i) + factor, "");
+            printf("%*s", num_digits - digits_in_num(i) + num_digits, "");
         }
         printf("\n");
     }
@@ -423,11 +423,9 @@ void number_tree(int limit) {
 // ----------------------------------------------------
 
 int armstrong(int num) {
-    float sum = 0;
-    float numf = num;
-    int digits = digits_in_num(num);
+    int sum = 0, numf = num, digits = digits_in_num(num);
     while (num != 0) {
-        sum += pow(num % 10, digits);
+        sum += (int) powl(num % 10, digits);
         num /= 10;
     }
     return sum == numf;
@@ -435,42 +433,44 @@ int armstrong(int num) {
 
 // ----------------------------------------------------
 
-int factorial_recursion_loop(int num, int recursion) {
+int factorial_loop(int num) {
     int factorial = 1;
-    if (recursion) { // Use Recursive method
-        if (num == 1 || num == 0) return 1;
-        return num * factorial_recursion_loop(num - 1, 1);
-    } else { // Use loops
-        while (num != 1) {
-            factorial *= num;
-            num--;
-        }
-        return factorial;
+    while (num != 1) {
+        factorial *= num;
+        num--;
     }
+    return factorial;
+}
+
+int factorial_recursion(int num) {
+    if (num == 1 || num == 0) return 1;
+    return num * factorial_recursion(num - 1);
 }
 
 // ----------------------------------------------------
 
-void quadratic_eqn_solver(double a, double b, double c) {
-    double discriminant;
-    double roots[2];
+void quadratic_eqn_solver() {
+    double a, b, c, D, roots[2];
+    printf("Enter a, b and c: ");
+    scanf("%lf, %lf, %lf", &a, &b, &c);
     int complex_roots = 0;
-    discriminant = pow(b, 2) - 4 * a * c;
-    if (discriminant < 0) {
-        discriminant *= -1;
+    D = pow(b, 2) - 4 * a * c;
+    if (D < 0) {
+        D *= -1;
         complex_roots = 1;
     }
-    discriminant = pow(discriminant, 0.5);
+    D = pow(D, 0.5);
+
+    printf("Roots of %.2fx^2 + %.2fx + %.2f are ", a, b, c);
 
     if (complex_roots == 1) {
         roots[0] = (-b / 2 * a); // Real Part
-        roots[1] = discriminant / (2 * a); // Imaginary Part
-        printf("The roots of the equation %fx^2 + %fx + %f are %f + %f i and %f - %f i",
-               a, b, c, roots[0], roots[1], roots[0], roots[1]);
+        roots[1] = D / (2 * a); // Imaginary Part
+        printf("%.2f + %.2f i and %.2f - %.2f i", roots[0], roots[1], roots[0], roots[1]);
     } else {
-        roots[0] = (-b + discriminant) / (2 * a);
-        roots[1] = (-b - discriminant) / (2 * a);
-        printf("The roots of the equation %fx^2 + %fx + %f are %f and %f", a, b, c, roots[0], roots[1]);
+        roots[0] = (-b + D) / (2 * a);
+        roots[1] = (-b - D) / (2 * a);
+        printf("%.2f and %.2f", roots[0], roots[1]);
     }
 }
 
@@ -542,13 +542,23 @@ double geometric_series_sum(double a, double r, int n) {
 
 // ----------------------------------------------------
 
-void print_matrix(float *matrix, int m, int n) {
-    for (int i = 0; i < n; i++) {
-        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
-        for (int j = 0; j < m; j++) {
-            printf("%20.2f ", matrix[i * m + j]);
+//void print_matrix(float *matrix, int m, int n) {
+//    for (int i = 0; i < n; i++) {
+//        printf(i == 0 ? "┌ " : (i == n - 1 ? "└ " : "| "));
+//        for (int j = 0; j < m; j++) {
+//            printf("%20.2f ", matrix[i * m + j]);
+//        }
+//        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
+//    }
+//}
+
+void print_matrix(float matrix[], int cols, int rows) {
+    for (int i = 0; i < rows; i++) {
+        printf(i == 0 || i == rows - 1 ? "+ " : "| ");
+        for (int j = 0; j < cols; j++) {
+            printf("%20.2f ", matrix[i * cols + j]);
         }
-        printf(i == 0 ? "┐\n" : (i == n - 1 ? "┘\n" : "| \n"));
+        printf(i == 0 || i == rows - 1 ? "+\n" : "| \n");
     }
 }
 
@@ -564,16 +574,16 @@ void matrix_multiplication() {
         printf("Invalid Orders! The Maximum order is %d!", max_order);
         return;
     }
-    float matrix1[n][p];
-    float matrix2[p][m];
-    float product_matrix[n][m];
+    float matrix1[n * p];
+    float matrix2[p * m];
+    float product_matrix[n * m];
 
     // Matrix Input
     // Matrix A
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < p; j++) {
             printf("A%d%d: ", i + 1, j + 1);
-            scanf("%f", &(matrix1[i][j]));
+            scanf("%f", &(matrix1[i * p + j]));
         }
     }
     printf("Matrix A is:\n");
@@ -582,25 +592,25 @@ void matrix_multiplication() {
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < m; j++) {
             printf("B%d%d: ", i + 1, j + 1);
-            scanf("%f", &(matrix2[i][j]));
+            scanf("%f", &(matrix2[i * m + j]));
         }
     }
     printf("Matrix B is:\n");
-    print_matrix((float *) matrix2, p, m);
+    print_matrix(matrix2, p, m);
 
     // Calculate Product
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            product_matrix[i][j] = 0;
+            product_matrix[i * m + j] = 0;
             for (int k = 0; k < p; k++) {
-                product_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
+                product_matrix[i * m + j] += matrix1[i * p + k] * matrix2[k * m + j];
             }
         }
     }
 
     // Print Matrix
     printf("The Product Matrix (A x B) is:\n");
-    print_matrix((float *) product_matrix, m, n);
+    print_matrix(product_matrix, m, n);
 }
 
 // ----------------------------------------------------
@@ -1086,7 +1096,7 @@ int main() {
 //   simple_calculator();
 //   sum_of_evens();
 //   grade_system();
-   polar_rectangle_converter();
+//   polar_rectangle_converter();
 //   fibonacci_gen_limit(50);
 //   prime_gen(50);
 //   array_reverse();
@@ -1095,16 +1105,16 @@ int main() {
 
 //   int num;
 //   scanf("%d", &num);
-//   digits_in_num(num);
+//    printf("%d", digits_in_num(-10));
 
-//   printf("%d\n", armstrong(93084));
-//   printf("%d\n", factorial_recursion_loop(5, 0));
-//    quadratic_eqn_solver(1, -4, 4);
+//   printf("%d\n", armstrong(153));
+//   printf("%d\n", factorial_loop(5));
+//    quadratic_eqn_solver(1, 1, 1);
 
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-//    matrix_multiplication();
+    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);

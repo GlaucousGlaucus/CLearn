@@ -31,29 +31,28 @@ int revenue_eater() {
 // ----------------------------------------------------
 
 void winners_eater() {
-    int numParticipants = 0;
-    int points[] = {0, 1, 2, 3, 3};
-    int highest_point = 0;
+    int players = 0;
+    int highest = 0;
     int winners = 0;
-    printf("--- Winners Eater V1 ---\n");
     printf("Enter Number of Participants: ");
-    scanf("%d", &numParticipants);
+    scanf("%d", &players);
+    int points[players];
 
-    if (numParticipants < 2) {
+    if (players < 2) {
         printf("Invalid number of participants.\nThere must be at least 2 "
                "participants\n");
     } else {
-        for (int i = 0; i < numParticipants; i++) {
+        for (int i = 0; i < players; i++) {
             printf("Participant %d\n", i + 1);
             printf("Enter Points: ");
             scanf("%d", &points[i]);
             if (i == 0 || (i > 0 && points[i] > points[i - 1])) {
-                highest_point = points[i];
+                highest = points[i];
             }
         }
         // Calculate the winner's points
-        for (int i = 0; i < numParticipants; i++) {
-            if (points[i] == highest_point) {
+        for (int i = 0; i < players; i++) {
+            if (points[i] == highest) {
                 winners += 1;
                 printf("The Winner is Participant: %d\n", i + 1);
             }
@@ -67,8 +66,7 @@ void winners_eater() {
 // ----------------------------------------------------
 
 void simple_calculator() {
-    int num1;
-    int num2;
+    int num1, num2, result;
     char operation;
     printf("--- Simple Calculator V1 ---\n");
     printf("Enter two numbers: ");
@@ -77,20 +75,22 @@ void simple_calculator() {
     scanf(" %c", &operation);
     switch (operation) {
         case '+':
-            printf("%d + %d = %d\n", num1, num2, num1 + num2);
+            result =  num1 + num2;
             break;
         case '-':
-            printf("%d - %d = %d\n", num1, num2, num1 - num2);
+            result =  num1 - num2;
             break;
         case '*':
-            printf("%d * %d = %d\n", num1, num2, num1 * num2);
+            result =  num1 * num2;
             break;
         case '/':
-            printf("%d / %d = %d\n", num1, num2, num1 / num2);
+            result =  num1 / num2;
             break;
         default:
             printf("Invalid operation\n");
+            return;
     }
+    printf("%d %c %d = %d\n", num1, operation, num2, result);
 }
 
 // ----------------------------------------------------
@@ -115,16 +115,16 @@ void grade_system() {
     char subjects[][100] = {"Math", "Science", "English"};
     for (int i = 0; i < 3; i++) {
         int score = 0;
-        printf("Enter Score for %s: ", subjects[i]);
+        printf("Score in %s: ", subjects[i]);
         scanf(" %d", &score);
         avg_score += score;
     }
     avg_score /= 3;
     if (avg_score >= 90) {
         grade = 'A';
-    } else if (avg_score >= 80 && avg_score < 90) {
+    } else if (avg_score >= 80) {
         grade = 'B';
-    } else if (avg_score >= 70 && avg_score < 80) {
+    } else if (avg_score >= 70) {
         grade = 'C';
     } else {
         grade = 'F';
@@ -137,46 +137,29 @@ void grade_system() {
 
 void temperature_conversion() {
     int in_type;
-    double in_value; // Inputs
-    double celsius, fahrenheit, kelvin, rankine, reaumur; // Outputs
+    double in_value, celsius;
     printf("Index: 0 = C, 1 = F, 2 = K, 3 = Rankine, 4 = Reaumur\n");
     printf("Enter Input Temperature Type: ");
     scanf("%d", &in_type);
     printf("Enter Temperature: ");
     scanf("%lf", &in_value);
 
+    printf("--------- Temperature Table ------------\n");
+
     switch (in_type) {
-        case 0:
-            celsius = in_value;
-            break;
-        case 1: // F to C
-            celsius = (in_value - 32) * 5 / 9;
-            break;
-        case 2: // K to C
-            celsius = in_value - 273.15;
-            break;
-        case 3: // kine to C
-            celsius = (in_value - 491.67) * 5 / 9;
-            break;
-        case 4: // Rea
-            celsius = in_value * 1.25;
-            break;
-        default:
-            printf("Invalid Type %d", in_type);
-            return;
+        case 0: celsius = in_value; break;
+        case 1: celsius = (in_value - 32) * 5 / 9; break;
+        case 2: celsius = in_value - 273.15; break;
+        case 3: celsius = (in_value - 491.67) * 5 / 9; break;
+        case 4: celsius = in_value * 1.25; break;
+        default: printf("Invalid Type %d", in_type); return;
     }
 
-    fahrenheit = (celsius * 9 / 5) + 32;
-    kelvin = celsius + 273.15;
-    rankine = (celsius * 9 / 5) + 491.67;
-    reaumur = celsius / 1.25;
-
-    printf("--------- Temperature Table ------------\n");
     printf("Celsius: %5.2lf\n", celsius);
-    printf("Fahrenheit: %5.2lf\n", fahrenheit);
-    printf("Kelvin: %5.2lf\n", kelvin);
-    printf("Rankine: %5.2lf\n", rankine);
-    printf("Reaumur: %5.2lf\n", reaumur);
+    printf("Fahrenheit: %5.2lf\n", (celsius * 9 / 5) + 32);
+    printf("Kelvin: %5.2lf\n", celsius + 273.15);
+    printf("Rankine: %5.2lf\n", (celsius * 9 / 5) + 491.67);
+    printf("Reaumur: %5.2lf\n", celsius / 1.25);
 
 }
 
@@ -188,20 +171,26 @@ int padovan_term(int n) {
     return padovan_term(n - 2) + padovan_term(n - 3);
 }
 
-void padovan_gen_limit(int limit) {
+void padovan_gen_limit() {
+    int limit, sum = 0, term;
+    printf("Enter Limit: ");
+    scanf("%d", &limit);
     for (int i = 0; i < limit; i++) {
-        printf("%d ", padovan_term(i));
+        term = padovan_term(i);
+        printf("%d ", term);
+        sum += term;
     }
+    printf("Sum of sequence upto %d is %d", limit, sum);
 }
 
 // ----------------------------------------------------
 
 void volume_calc() {
     int choice;
-    double length, width, height, radius, base, side, a, b, c;
+    double l, w, h, r, base, side, a, b, c;
 
-    printf("Select the shape to calculate volume:\n");
-    printf("1. Rectangular Solid or Cuboid\n");
+    printf("Select the shape:\n");
+    printf("1. Cuboid\n");
     printf("2. Cube\n");
     printf("3. Cylinder\n");
     printf("4. Prism\n");
@@ -216,44 +205,44 @@ void volume_calc() {
 
     switch (choice) {
         case 1: // Rectangular Solid or Cuboid
-            printf("Enter length, width, and height: ");
-            scanf("%lf, %lf, %lf", &length, &width, &height);
-            printf("Volume: %.2f\n", length * width * height);
+            printf("Enter l, w, and h: ");
+            scanf("%lf, %lf, %lf", &l, &w, &h);
+            printf("Volume: %.2f\n", l * w * h);
             break;
         case 2: // Cube
-            printf("Enter length of side: ");
+            printf("Enter l of side: ");
             scanf("%lf", &side);
             printf("Volume: %.2f\n", pow(side, 3));
             break;
         case 3: // Cylinder
-            printf("Enter radius and height: ");
-            scanf("%lf, %lf", &radius, &height);
-            printf("Volume: %.2f\n", PI * pow(radius, 2) * height);
+            printf("Enter r and h: ");
+            scanf("%lf, %lf", &r, &h);
+            printf("Volume: %.2f\n", PI * pow(r, 2) * h);
             break;
         case 4: // Prism
-            printf("Enter base area and height: ");
-            scanf("%lf, %lf", &base, &height);
-            printf("Volume: %.2f\n", base * height);
+            printf("Enter base area and h: ");
+            scanf("%lf, %lf", &base, &h);
+            printf("Volume: %.2f\n", base * h);
             break;
         case 5: // Sphere
-            printf("Enter radius: ");
-            scanf("%lf", &radius);
-            printf("Volume: %.2f\n", (4.0 / 3.0) * PI * pow(radius, 3));
+            printf("Enter r: ");
+            scanf("%lf", &r);
+            printf("Volume: %.2f\n", (4.0 / 3.0) * PI * pow(r, 3));
             break;
         case 6: // Pyramid
-            printf("Enter base area and height: ");
-            scanf("%lf, %lf", &base, &height);
-            printf("Volume: %.2f\n", (1.0 / 3.0) * base * height);
+            printf("Enter base area and h: ");
+            scanf("%lf, %lf", &base, &h);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * base * h);
             break;
         case 7: // Right Circular Cone
-            printf("Enter radius and height: ");
-            scanf("%lf, %lf", &radius, &height);
-            printf("Volume: %.2f\n", (1.0 / 3.0) * PI * pow(radius, 2) * height);
+            printf("Enter r and h: ");
+            scanf("%lf, %lf", &r, &h);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * PI * pow(r, 2) * h);
             break;
         case 8: // Square or Rectangular Pyramid
-            printf("Enter length, width, and height: ");
-            scanf("%lf, %lf, %lf", &length, &width, &height);
-            printf("Volume: %.2f\n", (1.0 / 3.0) * length * width * height);
+            printf("Enter l, w, and h: ");
+            scanf("%lf, %lf, %lf", &l, &w, &h);
+            printf("Volume: %.2f\n", (1.0 / 3.0) * l * w * h);
             break;
         case 9: // Ellipsoid
             printf("Enter semi-axes a, b, and c: ");
@@ -261,9 +250,9 @@ void volume_calc() {
             printf("Volume: %.2f\n", (4.0 / 3.0) * PI * a * b * c);
             break;
         case 10: // Tetrahedron
-            printf("Enter length of edge: ");
+            printf("Enter l of edge: ");
             scanf("%lf", &side);
-            printf("Volume: %.2f\n", pow(side, 3) / (6 * sqrt(2)));
+            printf("Volume: %.2f\n", pow(side, 3) * 0.11785);
             break;
         default:
             printf("Invalid choice!\n");
@@ -272,21 +261,19 @@ void volume_calc() {
 
 // ----------------------------------------------------
 
-double f(double x) {
-    return x * x;
-}
+double f(double x) { return 1 / (x * x * x); }
 
 void derivative_at_x(double x) {
     double h = 0.01;
     double der = (f(x + h) - f(x - h)) / (2.0 * h);
-    printf("The Derivative is %f\n", der);
+    printf("f'(%.2f) = %.2f\n", x, der);
 }
 
 void definite_integration_trapezoidal() {
     double ret;
-    int lower = 0, upper = 4;
+    double lower = 0, upper = 4;
     ret = (upper - lower) * (f(lower) + f(upper)) / 2;
-    printf("The Definite Integral is: %f\n", ret);
+    printf("The Definite Integral is: %.3f\n", ret);
 }
 
 void definite_integral_simpson_3_8() {
@@ -295,12 +282,8 @@ void definite_integral_simpson_3_8() {
     double h = (upper - lower) / intervals;
     double ret = f(lower) + f(lower + intervals * h);
     for (int i = 1; i < intervals; i++) {
-        if (i % 3 == 0) {
-            ret += 2 * f(lower + i * h);
-        }
-        else {
-            ret += 3 * f(lower + i * h);
-        }
+        if (i % 3 == 0) ret += 2 * f(lower + i * h);
+        else ret += 3 * f(lower + i * h);
     }
     ret *= (3.0 * h) / 8.0;
     printf("The Definite Integral is: %f", ret);
@@ -311,11 +294,10 @@ void definite_integral_simpson_3_8() {
 void polar_rectangle_converter() {
     /* Converts polar form to rectangular form and vice a versa.
      * Auto Detects whether the input is in polar or rectangular form.*/
-    char input[100 + 1];
+    char input[100 + 1], operator;
     double real, imag, angle, magnitude;
-    char operator;
     int flag, type;
-    printf("This program will auto detect the expression as rectangular or polar form and convert to polar and rectangular forms respectively. \nEnter Expression to convert: ");
+    printf("Enter Expression to convert: ");
     fgets(input, sizeof(input), stdin);
 
     flag = sscanf(input, "%lf %c j%lf", &real, &operator, &imag);
@@ -326,6 +308,7 @@ void polar_rectangle_converter() {
         type = 0;
         magnitude = sqrt(pow(real, 2) + pow(imag, 2));
         angle = atan2(imag, real) * (180 / PI);
+        printf("Radius: %.3f Angle: %.3f\n", magnitude, angle);
     } else if (sscanf(input, "%lf < %lf", &magnitude, &angle) == 2) {
         // Polar form
         type = 1;
@@ -334,14 +317,9 @@ void polar_rectangle_converter() {
         imag = magnitude * sin(angle);
         operator = imag >= 0 ? '+' : '-';
         imag *= imag >= 0 ? 1 : -1;
-    } else {
-        type = -1;
-    }
-
-    if (type == 1) { // Print the rectangular form from polar form
         printf("Rectangular form: %.3f %c j%.3f\n", real, operator, imag);
-    } else if (type == 0) { // Print the polar form from rectangular form
-        printf("Radius: %.3f Angle: %.3f\n", magnitude, angle);
+    } else {
+        printf("Invalid Expression\n");
     }
     printf("Press Any Key To Continue");
     getchar();
@@ -1108,7 +1086,7 @@ int main() {
 //   simple_calculator();
 //   sum_of_evens();
 //   grade_system();
-//   polar_rectangle_converter();
+   polar_rectangle_converter();
 //   fibonacci_gen_limit(50);
 //   prime_gen(50);
 //   array_reverse();
@@ -1143,10 +1121,10 @@ int main() {
 //    tic_tac_toe();
 //    day_from_date(17, 3, 2024);
 
-    dice_roller();
+//    dice_roller();
 
 //    temperature_conversion();
-//    padovan_gen_limit(50);
+//    padovan_gen_limit();
 
 //    volume_calc();
 

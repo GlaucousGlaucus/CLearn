@@ -564,14 +564,13 @@ void print_matrix(float matrix[], int cols, int rows) {
 
 void matrix_multiplication() {
     // Get input
-    int max_order = 5;
     int n, p, m;
     // Get Matrix Orders
     printf("Enter matrix order n, p, m: ");
     scanf("%d, %d, %d", &n, &p, &m);
     // Verify Orders
-    if ((n > max_order || p > max_order || m > max_order) && (n != 0 || p != 0 || m != 0)) {
-        printf("Invalid Orders! The Maximum order is %d!", max_order);
+    if (!(n > 0 && p > 0 & m > 0)) {
+        printf("Invalid Orders!");
         return;
     }
     float matrix1[n * p];
@@ -587,7 +586,7 @@ void matrix_multiplication() {
         }
     }
     printf("Matrix A is:\n");
-    print_matrix((float *) matrix1, p, n);
+    print_matrix(matrix1, p, n);
     // Matrix B
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < m; j++) {
@@ -615,12 +614,12 @@ void matrix_multiplication() {
 
 // ----------------------------------------------------
 
-int binary_to_decimal(int bin_num) {
+int binary_to_decimal(int num) {
     int decimal = 0;
     int place = 0;
-    while (bin_num != 0) {
-        decimal += (bin_num % 10) * pow(2, place);
-        bin_num /= 10;
+    while (num != 0) {
+        decimal += (num % 10) * powl(2, place);
+        num /= 10;
         place++;
     }
     printf("deci: %d", decimal);
@@ -658,7 +657,7 @@ void max_array() {
 // ----------------------------------------------------
 
 int palindrome_check(char string[]) {
-    unsigned long len = strlen(string) - 1;
+    long len = strlen(string) - 1;
     for (int i = 0; i <= len; i++) {
         if (string[i] != string[len - i]) {
             return 0;
@@ -677,19 +676,18 @@ int random_int(int seed, int m, int a, int c) {
 // ---------------------------------------------------
 
 void dice_roller() {
-    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed,
-    roll, target_roll;
-
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed;
     printf("Enter any number: ");
     scanf("%d", &seed);
+
+    // Simplify the roll calculations
     seed = random_int(seed, m, a, c);
-    roll = seed % 6;
-    target_roll = random_int(seed, m, a, c) % 6;
-    if (roll < 0) roll *= -1;
-    roll++;
-    if (target_roll < 0) target_roll *= -1;
-    target_roll++;
-        printf("The Dice rolled a %d. The Target was %d\n", roll, target_roll);
+    int roll = (abs(seed) % 6) + 1;
+    int target_roll = (abs(random_int(seed, m, a, c)) % 6) + 1;
+
+    printf("The Dice rolled a %d. The Target was %d\n", roll, target_roll);
+
+    // Output result
     if (roll == target_roll) {
         printf("You Won!");
     } else {
@@ -700,47 +698,12 @@ void dice_roller() {
 // ---------------------------------------------------
 
 int turn_eval(int p1, int p2) {
-    /*
-     * Rock : 0 Paper : 1 Scissors: 2
-     * 0 + 2 = 2 -> 0
-     * 1 + 0 = 1 -> 1
-     * 2 + 1 = 3 -> 2
-     * */
-    int sum = p1 + p2;
-    int win_type;
-    if (p1 == p2) { // Draw
-        return -1;
-    }
-    switch (sum) {
-        case 1:
-            win_type = 1;
-            break;
-        case 2:
-            win_type = 0;
-            break;
-        case 3:
-            win_type = 2;
-            break;
-        default:
-            win_type = -1;
-            break;
-    }
-    if (win_type == -1) {
-        return -1;
-    }
-    return win_type == p1 ? 1 : 2;
+    if (p1 == p2) return -1; // Draw
+    return (p1 == (p2 + 1) % 3) ? 1 : 2;
 }
 
-int eval_player_choice(const char input[]) {
-    if (strstr(input, "r") != NULL || strstr(input, "rock") != NULL) {
-        return 0;
-    }
-    if (strstr(input, "p") != NULL || strstr(input, "paper") != NULL) {
-        return 1;
-    }
-    if (strstr(input, "s") != NULL || strstr(input, "scissors") != NULL) {
-        return 2;
-    }
+int eval_player_choice(int input) {
+    if (input < 3 && input >= 0) return input;
     return -1;
 }
 
@@ -761,10 +724,10 @@ void print_choice_name(int choice) {
 }
 
 void rock_paper_scissors() {
-    char player_name[100], p_choice_input[100];
-    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, best_of;
-    int score_ai = 0, score_player = 0;
-    int ai_choice, player_choice;
+    char player_name[100];
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed, best_of, p_choice_in;
+    int score_player_2 = 0, score_player_1 = 0;
+    int p2_choice, p1_choice;
     // Input Game Options
     printf("Please Enter Your Name (Max 100 characters): ");
     scanf("%99s", player_name);
@@ -775,100 +738,93 @@ void rock_paper_scissors() {
     seed = ((int) strlen(player_name)) * (best_of);
 
     // Play game
-    while (score_player < best_of && score_ai < best_of) {
-        printf("Enter Your Choice (Rock/Paper/Scissors): ");
-        scanf("%99s", p_choice_input);
-        player_choice = eval_player_choice(p_choice_input);
-        if (player_choice == -1) {
+    while (score_player_1 < best_of && score_player_2 < best_of) {
+        printf("Enter Your Choice (0 = Rock/ 1 = Paper/ 2 = Scissors): ");
+        scanf("%d", &p_choice_in);
+        p1_choice = eval_player_choice(p_choice_in);
+        if (p1_choice == -1) {
             printf("Please Enter A Valid Move.\n");
             continue;
         }
 
         seed = random_int(seed, m, a, c);
-        ai_choice = seed % 3;
-        if (ai_choice < 0) {
-            ai_choice *= -1;
-        }
+        p2_choice = abs(seed) % 3;
         printf("Computer Chose: ");
-        print_choice_name(ai_choice);
+        print_choice_name(p2_choice);
         printf("\n");
-        switch (turn_eval(player_choice, ai_choice)) {
+        switch (turn_eval(p1_choice, p2_choice)) {
             case 1:
-                score_player++;
-                printf("%s Won!\n", player_name);
+                score_player_1++;
                 break;
             case 2:
-                score_ai++;
-                printf("Computer WON!\n");
+                score_player_2++;
                 break;
             default:
-                printf("Draw\n");
                 break;
         }
     }
 
     // Display Results
 
-    printf("The Scores are:\n Player: %d \tLCG: %d\n", score_player, score_ai);
-    if (score_ai > score_player) {
-        printf("Computer Won with %d point(s)!", score_ai);
+    printf("The Scores are:\n Player: %d \tLCG: %d\n", score_player_1, score_player_2);
+    if (score_player_2 > score_player_1) {
+        printf("Computer Won with %d point(s)!", score_player_2);
     } else {
-        printf("%s Won with %d point(s)!", player_name, score_player);
+        printf("%s Won with %d point(s)!", player_name, score_player_1);
     }
 }
 
 // ----------------------------------------------------
 
-int greatest_common_factor(int num1, int num2) {
-    while (num2 != 0) {
-        int temp = num2;
-        num2 = num1 % num2;
-        num1 = temp;
+int gcf(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
     }
-    return num1;
+    return a;
 }
 
-int gcf_array(int *nums) {
-    int gcf = nums[0], size = sizeof(&nums) / sizeof(nums[0]);
-    for (int i = 1; i < size; i++) {
-        gcf = greatest_common_factor(gcf, nums[i]);
+void gcf_array() {
+    int size, ret, i;
+    printf("Enter Array Size: ");
+    scanf("%d", &size);
+    int nums[size];
+    for (i = 0; i < size; i++) {
+        printf("Element %d: ", i + 1);
+        scanf("%d", &nums[i]);
+        if (i == 0) ret = nums[0];
+        else ret = gcf(ret, nums[i]);
     }
-    return gcf;
+    printf("GCF is %d", ret);
 }
 
 // ----------------------------------------------------
 
 void fraction_representation(double decimal) {
-    int numerator, denominator, whole, order = 7, diff;
+    int numtr, dentr, whole, order = 7, diff;
     printf("Fractional Representation of %f is \n", decimal);
-    denominator = pow(10, order);
-    decimal *= denominator;
-    numerator = (int) decimal;
-    diff = greatest_common_factor(numerator, denominator);
-    numerator /= diff;
-    denominator /= diff;
-    whole = numerator / denominator;
-    numerator -= denominator * whole;
-    printf("%*c %d\n", digits_in_num(whole) + 1, ' ', numerator);
-    printf("%d %*c", whole, digits_in_num(whole), ' ');
-    for (int i = 0; i < (digits_in_num(numerator) + digits_in_num(denominator)) / 2; i++) printf("-");
-    printf("\n%*c %d", digits_in_num(whole) + 1, ' ', denominator);
+    dentr = (int) powl(10, order);
+    decimal *= dentr;
+    numtr = (int) decimal;
+    diff = gcf(abs(numtr), abs(dentr));
+    numtr /= diff;
+    dentr /= diff;
+    whole = numtr / dentr;
+    numtr -= dentr * whole;
+    if (numtr == 0) printf("%d", whole);
+    else {
+        numtr = abs(numtr);
+        if (whole == 0) printf("%d/%d", numtr, dentr);
+        else printf("%d %d/%d", whole, numtr, dentr);
+    }
 }
 
 // ----------------------------------------------------
 
-#define BOARD_SIZE 4
+#define BOARD_SIZE 3
 
-void clearScreen() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
-void print_board(int (*board)[BOARD_SIZE]) {
-    clearScreen();
+void print_board(int board[BOARD_SIZE]) {
     // Print the Guides
     char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("%*c|", BOARD_SIZE, ' ');
@@ -887,9 +843,9 @@ void print_board(int (*board)[BOARD_SIZE]) {
             if (j == 0) {
                 printf("|");
             }
-            if (board[i][j] == 1) {
+            if (board[i * BOARD_SIZE + j] == 1) {
                 printf("  X  ");
-            } else if (board[i][j] == -1) {
+            } else if (board[i * BOARD_SIZE + j] == -1) {
                 printf("  O  ");
             } else {
                 printf("     ");
@@ -902,8 +858,8 @@ void print_board(int (*board)[BOARD_SIZE]) {
     }
 }
 
-int evaluate_board(int (*board)[BOARD_SIZE]) {
-    int hsum = 0, vsum = 0, dsum = 0, turn_eval;
+int evaluate_board(int board[BOARD_SIZE][BOARD_SIZE]) {
+    int hsum = 0, vsum = 0, dsum = 0;
     // Check Horizontal
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -929,7 +885,7 @@ int evaluate_board(int (*board)[BOARD_SIZE]) {
         if (dsum == BOARD_SIZE) {
             return 1; // Player 1 wins
         } else if (dsum == -BOARD_SIZE) {
-            return -1; // Player 2 wins
+            return 2; // Player 2 wins
         }
         dsum = 0;
     }
@@ -969,7 +925,7 @@ void tic_tac_toe() {
     // Game loop
     while (winner == 0) {
         // Input Move
-        print_board(board);
+        print_board((int *) board);
         printf("\nPlayer %d's turn\nSelect Cell: ", turn);
         turn_success = evaluate_action(board, turn);
         winner = evaluate_board(board);
@@ -982,7 +938,7 @@ void tic_tac_toe() {
             getchar();
         }
     }
-    print_board(board);
+    print_board((int *) board);
     switch (winner) {
         case 1:
         case 2:
@@ -1114,7 +1070,7 @@ int main() {
 //    printf("%f\n", arithmetic_series_sum(8, 1, 5));
 //    printf("%f\n", geometric_series_sum(8, 1, 5));
 
-    matrix_multiplication();
+//    matrix_multiplication();
 //    matrix_determinant();
 
 //    binary_to_decimal(111000);
@@ -1127,8 +1083,8 @@ int main() {
 //    printf("%d", random_int(123));
 //    rock_paper_scissors();
 
-//    fraction_representation(1.32);
-//    tic_tac_toe();
+//    fraction_representation(-1.23);
+    tic_tac_toe();
 //    day_from_date(17, 3, 2024);
 
 //    dice_roller();
@@ -1141,6 +1097,8 @@ int main() {
 //    derivative_at_x(2);
 //    definite_integration_trapezoidal();
 //    definite_integral_simpson_3_8();
+
+//    gcf_array();
 
     return 0;
 }

@@ -824,7 +824,7 @@ void fraction_representation(double decimal) {
 
 #define BOARD_SIZE 3
 
-void print_board(int board[BOARD_SIZE]) {
+void print_board(int board[BOARD_SIZE][BOARD_SIZE]) {
     // Print the Guides
     char col_headings[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("%*c|", BOARD_SIZE, ' ');
@@ -843,9 +843,9 @@ void print_board(int board[BOARD_SIZE]) {
             if (j == 0) {
                 printf("|");
             }
-            if (board[i * BOARD_SIZE + j] == 1) {
+            if (board[i][j] == 1) {
                 printf("  X  ");
-            } else if (board[i * BOARD_SIZE + j] == -1) {
+            } else if (board[i][j] == -1) {
                 printf("  O  ");
             } else {
                 printf("     ");
@@ -899,7 +899,7 @@ int evaluate_board(int board[BOARD_SIZE][BOARD_SIZE]) {
     return -1; // Draw
 }
 
-int evaluate_action(int (*board)[BOARD_SIZE], int turn) {
+int evaluate_action(int board[BOARD_SIZE][BOARD_SIZE], int turn) {
     /*Returns if turn was successful or not*/
     int i, j;
     char temp_j[2];
@@ -925,7 +925,7 @@ void tic_tac_toe() {
     // Game loop
     while (winner == 0) {
         // Input Move
-        print_board((int *) board);
+        print_board(board);
         printf("\nPlayer %d's turn\nSelect Cell: ", turn);
         turn_success = evaluate_action(board, turn);
         winner = evaluate_board(board);
@@ -938,7 +938,7 @@ void tic_tac_toe() {
             getchar();
         }
     }
-    print_board((int *) board);
+    print_board(board);
     switch (winner) {
         case 1:
         case 2:
@@ -951,7 +951,7 @@ void tic_tac_toe() {
 
 // ----------------------------------------------------
 
-const char *get_number_suffix(int num) {
+char *get_number_suffix(int num) {
     if (num % 100 / 10 == 1) return "th";
     switch (num % 10) {
         case 1:

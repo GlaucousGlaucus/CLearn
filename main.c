@@ -1244,8 +1244,83 @@ void quick_sort() {
     }
 }
 
+// -----------------------------------------------------
+
+int pangram_check(char str[]) {
+    int hash[26], index;
+
+    for (int i = 0; i < 26; i++) hash[i] = 0;
+
+    for (int i = 0; i < strlen(str); i++) {
+        if ('A' <= str[i] && str[i] <= 'Z') index = str[i] - 'A';
+        else if ('a' <= str[i] && str[i] <= 'z') index = str[i] - 'a';
+        else continue;
+        hash[index] = 1;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (hash[i] == 0) return 0;
+    }
+    return 1;
+}
+
+// -----------------------------------------------------
+
+typedef struct {
+    int length;
+    int vowels;
+    int consonants;
+    int white_spaces;
+    int special;
+    int palindrome;
+    int pangram;
+} STRING_RESULT;
+
+int match_char(char ch, char targets[]) {
+    int len = 0;
+    while (targets[len] != '\0') {
+        if (ch == targets[len]) return 1;
+        len ++;
+    }
+    return 0;
+}
+
+void string_analysis() {
+    char str[256];
+    STRING_RESULT analysis;
+    printf("Enter a String: ");
+    fgets(str, sizeof(str), stdin);
+
+    analysis.length = 0;
+    analysis.consonants = 0;
+    analysis.vowels = 0;
+    analysis.special = 0;
+    analysis.white_spaces = 0;
+    while (str[analysis.length] != '\0') {
+        analysis.length++;
+        if (match_char(str[analysis.length], "aeiou")) analysis.vowels++;
+        else if (match_char(str[analysis.length], "bcdfghjklmnpqrstvwxyz")) analysis.consonants++;
+        else if (str[analysis.length] == ' ') analysis.white_spaces++;
+        else if (match_char(str[analysis.length], "~`!@#$%^&*()-_=+\\|]}[{;:'\"/?.>,<")) analysis.special++;
+    }
+
+    analysis.palindrome = palindrome_check(str);
+    analysis.pangram = pangram_check(str);
+
+    printf("String Analysis\n");
+    printf("Length: %2d\n", analysis.length);
+    printf("Consonants: %2d\n", analysis.consonants);
+    printf("Vowels: %2d\n", analysis.vowels);
+    printf("White Spaces: %2d\n", analysis.white_spaces);
+    printf("Special: %2d\n", analysis.special);
+    printf("Palindrome: %2s\n", analysis.palindrome ? "Yes":"No");
+    printf("Pangram: %2s\n", analysis.pangram ? "Yes":"No");
+
+}
+
 int main() {
-    quick_sort();
+    string_analysis();
+//    quick_sort();
 //    bubble_sort();
 //    matrix_determinant();
 //    lcm_array();

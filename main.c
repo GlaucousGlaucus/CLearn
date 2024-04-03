@@ -1149,8 +1149,48 @@ void matrix_determinant() {
     printf("Determinant: %.2f", determinant(matrix, n));
 }
 
+// -----------------------------------------------------
+
+void bubble_sort() {
+    int n = 10, arr[n], element;
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed;
+    printf("Enter Seed: ");
+    scanf("%d", &seed);
+    printf("Unsorted Array: ");
+    for (int i = 0; i < n; i++) {
+        element = random_int(seed, m, a, c);
+        seed = element;
+        arr[i] = element % 51;
+        printf("%d ", arr[i]);
+    }
+
+    // Sorting
+    int i, j, temp;
+
+    for (i = 0 ; i < n - 1; i++) {
+        for (j = 0 ; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+
+    // Display mental
+
+    printf("\n");
+    printf("Sorted Array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+}
+
+
 int main() {
-    matrix_determinant();
+    bubble_sort();
+//    matrix_determinant();
 //    lcm_array();
 //    printf("%d", lcm_gcd(5, 7));
 //    reverse_num();

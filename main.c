@@ -1059,9 +1059,42 @@ void reverse_num() {
     printf("%d", ret);
 }
 
+// -----------------------------------------------------
+
+int lcm(int a, int b) {
+    int lcm = a > b ? a:b;
+    while (1) {
+        if ((lcm % a == 0) && (lcm % b == 0)) {
+            return lcm;
+        }
+        lcm++;
+    }
+}
+
+int lcm_gcd(int a, int b) {
+    int lcm = abs(a*b)/gcf(a, b);
+    return lcm;
+}
+
+void lcm_array() {
+    int size, ret, i;
+    printf("Enter Array Size: ");
+    scanf("%d", &size);
+    int nums[size];
+    for (i = 0; i < size; i++) {
+        printf("Element %d: ", i + 1);
+        scanf("%d", &nums[i]);
+        if (i == 0) ret = nums[0];
+        else ret = lcm(ret, nums[i]);
+    }
+    printf("LCM is %d", ret);
+}
+
 
 int main() {
-    reverse_num();
+    lcm_array();
+//    printf("%d", lcm_gcd(5, 7));
+//    reverse_num();
 
 //   revenue_eater();
 //   winners_eater();

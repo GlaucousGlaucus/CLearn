@@ -1090,9 +1090,68 @@ void lcm_array() {
     printf("LCM is %d", ret);
 }
 
+// -----------------------------------------------------
+
+int map_matrix_index(int i, int j, int cols) {
+    return i * cols + j;
+}
+
+float determinant(float matrix[], int order) {
+    int det = 0.0;
+    if (order == 1) return matrix[0];
+    if (order == 2) return (matrix[0] * matrix[3] - matrix[1] * matrix[2]);
+    for (int n = 0; n < order; n++) {
+        float minor[order - 1][order - 1];
+        // Slice matrix
+        for (int i = 1; i < order; i++) {
+            int colIndex = 0;
+            for (int j = 0; j < order; j++) {
+                if (j == n) continue; // Skip the current column
+                minor[i - 1][colIndex] = matrix[i * order + j];
+                colIndex++;
+            }
+        }
+
+        float minorDet = determinant((float *) minor, order - 1);
+
+        // Add to the determinant with alternating signs
+        if (n % 2 == 0)
+            det += matrix[n] * minorDet;
+        else
+            det -= matrix[n] * minorDet;
+    }
+    return det;
+}
+
+void matrix_determinant() {
+    // Get input
+    int n;
+    // Get Matrix Orders
+    printf("Enter matrix order: ");
+    scanf("%d", &n);
+    // Verify Orders
+    if (n <= 0) {
+        printf("Invalid Order!");
+        return;
+    }
+    float matrix[n * n], factor;
+
+    // Matrix Input
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("A(%d, %d): ", i + 1, j + 1);
+            scanf("%f", &(matrix[i * n + j]));
+        }
+    }
+    printf("Matrix is:\n");
+    print_matrix(matrix, n, n);
+
+    printf("Determinant: %.2f", determinant(matrix, n));
+}
 
 int main() {
-    lcm_array();
+    matrix_determinant();
+//    lcm_array();
 //    printf("%d", lcm_gcd(5, 7));
 //    reverse_num();
 

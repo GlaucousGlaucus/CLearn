@@ -1045,8 +1045,24 @@ void day_from_date(int day, int month, int year) {
 
 // -----------------------------------------------------
 
+void reverse_num() {
+    int num, ret = 0, place;
+    printf("Enter Number: ");
+    scanf("%d", &num);
+    place = powl(10, digits_in_num(num) - 1);
+    printf("Reversed Number:");
+    while (num != 0) {
+        ret += (num % 10) * place;
+        num /= 10;
+        place /= 10;
+    }
+    printf("%d", ret);
+}
+
 
 int main() {
+    reverse_num();
+
 //   revenue_eater();
 //   winners_eater();
 //   simple_calculator();
@@ -1084,7 +1100,7 @@ int main() {
 //    rock_paper_scissors();
 
 //    fraction_representation(-1.23);
-    tic_tac_toe();
+//    tic_tac_toe();
 //    day_from_date(17, 3, 2024);
 
 //    dice_roller();

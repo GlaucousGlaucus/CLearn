@@ -1150,6 +1150,11 @@ void matrix_determinant() {
 }
 
 // -----------------------------------------------------
+void swap(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
 
 void bubble_sort() {
     int n = 10, arr[n], element;
@@ -1170,9 +1175,7 @@ void bubble_sort() {
     for (i = 0 ; i < n - 1; i++) {
         for (j = 0 ; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+                swap(&arr[j+1], &arr[j]);
             }
         }
     }
@@ -1187,9 +1190,63 @@ void bubble_sort() {
     }
 }
 
+// -----------------------------------------------------
+
+int partition(int array[], int low, int high) {
+
+    int pivot = array[high];
+    int i = (low - 1);
+
+    for (int j = low; j < high; j++) {
+        if (array[j] <= pivot) {
+            i++;
+            swap(&array[i], &array[j]);
+        }
+    }
+
+    swap(&array[i + 1], &array[high]);
+    return (i + 1);
+}
+
+void quickSort(int array[], int low, int high) {
+    if (low < high) {
+
+        int pi = partition(array, low, high);
+
+        quickSort(array, low, pi - 1);
+
+        quickSort(array, pi + 1, high);
+    }
+}
+
+void quick_sort() {
+    int n = 10, arr[n], element;
+    int a = 1103515245, c = 12345, m = (int) powl(2, 31), seed;
+    printf("Enter Seed: ");
+    scanf("%d", &seed);
+    printf("Unsorted Array: ");
+    for (int i = 0; i < n; i++) {
+        element = random_int(seed, m, a, c);
+        seed = element;
+        arr[i] = element % 51;
+        printf("%d ", arr[i]);
+    }
+
+    // Sorting
+    quickSort(arr, 0, n);
+
+    // Display mental
+
+    printf("\n");
+    printf("Sorted Array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+}
 
 int main() {
-    bubble_sort();
+    quick_sort();
+//    bubble_sort();
 //    matrix_determinant();
 //    lcm_array();
 //    printf("%d", lcm_gcd(5, 7));

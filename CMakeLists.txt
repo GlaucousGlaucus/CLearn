@@ -7,4 +7,6 @@ add_executable(CLearn
         old/version.c
     old/main.c
     old/next_step.c
-        DSA/LinkedLists/basics.c)
+        DSA/LinkedLists/basics.c
+        DSA/LinkedLists/stack_impl.c
+        DSA/LinkedLists/queue_impl.c)

@@ -9,4 +9,5 @@ add_executable(CLearn
     old/next_step.c
         DSA/LinkedLists/basics.c
         DSA/LinkedLists/stack_impl.c
-        DSA/LinkedLists/queue_impl.c)
+        DSA/LinkedLists/queue_impl.c
+        "DSA/Trees And Graphs/binary_tree.c")

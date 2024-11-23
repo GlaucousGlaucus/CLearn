@@ -36,8 +36,7 @@ Node* search(Node* root, int data) {
 
     if (data < root->data)
         return search(root->left, data);
-    else
-        return search(root->right, data);
+    return search(root->right, data);
 }
 
 // Find the minimum node
@@ -62,7 +61,8 @@ Node* deleteNode(Node* root, int data) {
             Node* temp = root->right;
             free(root);
             return temp;
-        } else if (root->right == NULL) {
+        }
+        if (root->right == NULL) {
             Node* temp = root->left;
             free(root);
             return temp;

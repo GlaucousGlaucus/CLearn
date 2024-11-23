@@ -97,7 +97,8 @@ int main() {
     printf("Original array:\n");
     printArray(arr, size);
 
-    radixSort(arr, size);
+    heapSort(arr, size);
+    // radixSort(arr, size);
 
     printf("Sorted array:\n");
     printArray(arr, size);

@@ -5,18 +5,23 @@
 typedef struct node_struct {
     int val;
     struct node_struct* next;
+    struct node_struct* prev;
 } NODE;
 
 NODE* createNode(int val) {
     NODE* node = malloc(sizeof(NODE));
     node->val = val;
     node->next = NULL;
+    node->prev = NULL;
     return node;
 }
 
 void push(NODE** head, int val) {
     NODE* node = createNode(val);
     node->next = *head;
+    if (*head != NULL) {
+        (*head)->prev = node;
+    }
     *head = node;
 }
 
@@ -28,11 +33,11 @@ void insert_at_end(NODE** head, int val) {
     }
     // Traverse
     NODE* current = *head;
-    current->next = *head;
     while (current->next != NULL) {
         current = current->next;
     }
     current->next = node;
+    node->prev = current;
 }
 
 void delete_node(NODE** head, int key) {
@@ -40,6 +45,7 @@ void delete_node(NODE** head, int key) {
     NODE* previous = NULL;
     if (current != NULL && current->val == key) {
         *head = current->next;
+        (*head)->prev = NULL;
         free(current);
         return;
     }
@@ -52,6 +58,9 @@ void delete_node(NODE** head, int key) {
     }
     assert(previous != NULL);
     previous->next = current->next;
+    if (previous->next != NULL) {
+        (previous->next)->prev = previous;
+    }
     free(current);
 }
 

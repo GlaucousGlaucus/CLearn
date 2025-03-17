@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node_struct {
+typedef struct node {
     int val;
-    struct node_struct* next;
+    struct node* next;
 } NODE;
 
 NODE* createNode(int val) {
@@ -14,66 +14,64 @@ NODE* createNode(int val) {
     return node;
 }
 
-void push(NODE** head, int val) {
+void insert_at_beginning(NODE** head, int val) {
     NODE* node = createNode(val);
+    if (*head == NULL) {
+        node->next = node;
+        *head = node;
+        return;
+    }
     node->next = *head;
+    NODE* current = (*head)->next;
+    while (current->next != *head) {
+        current = current->next;
+    }
+    current->next = node;
     *head = node;
 }
 
 void insert_at_end(NODE** head, int val) {
     NODE* node = createNode(val);
     if (*head == NULL) {
+        node->next = node;
         *head = node;
-        node->next = *head;
         return;
     }
     // Traverse
-    NODE* current = *head;
-    while (current->next != NULL) {
+    NODE* current = (*head)->next;
+    while (current->next != *head) {
         current = current->next;
     }
-    current->next = node;
     node->next = *head;
+    current->next = node;
 }
 
 void delete_node(NODE** head, int key) {
     NODE* current = *head;
     NODE* previous = NULL;
-
-    // If it's the only element
-    if (current->val == key) {
-        if (current->next == *head) {
-            free(current);
-            *head = NULL;
-            return;
-        }
-        while (current->next != *head) {
-            current = current->next;
-        }
-        current->next = (*head)->next;
-        free(*head);
+    if (current != NULL && current->val == key) {
         *head = current->next;
+        free(current);
         return;
     }
-
-    do {
+    while (current != NULL && current->val != key) {
         previous = current;
         current = current->next;
-    } while (current != *head && current->val != key);
-
-    if (current->val == key) {
-        assert(previous != NULL);
-        previous->next = current->next;
-        free(current);
     }
+    if (current == NULL) {
+        return;
+    }
+    assert(previous != NULL);
+    previous->next = current->next;
+    free(current);
 }
 
 void traverse_print(NODE* head) {
-    NODE* current = head;
-    do {
+    NODE* current = head->next;
+    while (current != head) {
         printf("%d ", current->val);
         current = current->next;
-    } while (current != head);
+    }
 }
 
 int main() {
@@ -82,7 +80,7 @@ int main() {
     head->next = second;
     NODE* third = createNode(3);
     second->next = third;
-    push(&head, 4);
+    insert_at_beginning(&head, 4);
     insert_at_end(&head, 5);
     delete_node(&head, 2);
     traverse_print(head);

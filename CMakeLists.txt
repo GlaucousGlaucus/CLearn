@@ -8,14 +8,8 @@ add_executable(CLearn
     old/main.c
     old/next_step.c
         DSA/LinkedLists/basics.c
+        DSA/LinkedLists/stack_impl.c
+        DSA/LinkedLists/queue_impl.c
+        "DSA/Trees And Graphs/binary_tree.c"
         DSA/LinkedLists/circular.c
-        DSA/LinkedLists/doubly.c
-        DSA/LinkedLists/stacks.c
-        DSA/LinkedLists/queue.c
-        DSA/LinkedLists/poly.c
-        DSA/Trees/basics.c
-        NM/bisection_method.c
-        NM/regular_falsie.c
-        NM/gauss_jordarn.c
-        "NM/newton fb.c"
-)
+        "DSA/Trees And Graphs/graphs.c")

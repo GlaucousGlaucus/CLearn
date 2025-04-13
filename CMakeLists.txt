@@ -12,4 +12,5 @@ add_executable(CLearn
         DSA/LinkedLists/queue_impl.c
         "DSA/Trees And Graphs/binary_tree.c"
         DSA/LinkedLists/circular.c
-        "DSA/Trees And Graphs/graphs.c")
+        "DSA/Trees And Graphs/graphs.c"
+        NM/revision/mod1.c)

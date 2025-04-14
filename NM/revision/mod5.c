@@ -7,7 +7,7 @@ float f(float x, float y) { return x + y; }
 void euler() {
     float x = 0, y = 1, h = 0.1;
     for (int i = 0; i < 10; i++) {
-        y = y + h * f(x, y);
+        y += h * f(x, y);
         x += h;
     }
     printf("Euler y(1): %.4f\\n", y);

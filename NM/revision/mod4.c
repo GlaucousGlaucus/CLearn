@@ -1,41 +1,60 @@
-// Module IV: Differentiation and Integration
 #include <stdio.h>
 
-float x[] = {1, 2, 3, 4};
-float y[] = {1, 4, 9, 16}; // y = x^2
-int n = 4;
-
-void diff_interp() {
-    // Forward difference for dy/dx at x=1
-    float h = x[1] - x[0];
-    float dy = (-y[2] + 4*y[1] - 3*y[0]) / (2*h);
-    printf("Differentiation at x=1: %.2f\n", dy);
+// Define the function to integrate
+double f(double x) {
+    return 1.0 / (1.0 + x * x);  // Example: f(x) = 1 / (1 + x^2)
 }
 
-void trapezoidal() {
-    float area = 0;
-    for (int i = 0; i < n - 1; i++) {
-        float h = x[i+1] - x[i];
-        area += h * (y[i] + y[i+1]) / 2;
-    }
-    printf("Trapezoidal Integration: %.2f\n", area);
+// Trapezoidal Rule
+double trapezoidal(double a, double b, int n) {
+    double h = (b - a) / n;
+    double sum = f(a) + f(b);
+    for (int i = 1; i < n; i++)
+        sum += 2 * f(a + i * h);
+    return (h / 2.0) * sum;
 }
 
-void simpson() {
-    // Assumes even intervals, even number of segments
-    float h = x[1] - x[0];
-    float area = y[0] + y[n-1];
-    for (int i = 1; i < n - 1; i++) {
-        if (i % 2 == 0) area += 2 * y[i];
-        else area += 4 * y[i];
+// Simpson's 1/3 Rule
+double simpson13(double a, double b, int n) {
+    if (n % 2 != 0) {
+        printf("Simpson's 1/3 rule requires even number of intervals.\n");
+        return -1;
     }
-    area *= h / 3;
-    printf("Simpson Integration: %.2f\n", area);
+    double h = (b - a) / n;
+    double sum = f(a) + f(b);
+    for (int i = 1; i < n; i++) {
+        if (i % 2 == 0)
+            sum += 2 * f(a + i * h);
+        else
+            sum += 4 * f(a + i * h);
+    }
+    return (h / 3.0) * sum;
+}
+
+// Simpson's 3/8 Rule
+double simpson38(double a, double b, int n) {
+    if (n % 3 != 0) {
+        printf("Simpson's 3/8 rule requires number of intervals divisible by 3.\n");
+        return -1;
+    }
+    double h = (b - a) / n;
+    double sum = f(a) + f(b);
+    for (int i = 1; i < n; i++) {
+        if (i % 3 == 0)
+            sum += 2 * f(a + i * h);
+        else
+            sum += 3 * f(a + i * h);
+    }
+    return (3 * h / 8.0) * sum;
 }
 
 int main() {
-    diff_interp();
-    trapezoidal();
-    simpson();
+    double a = 0.0, b = 1.0;
+    int n = 6;  // Example: must be even for 1/3, divisible by 3 for 3/8
+
+    printf("Trapezoidal Rule: %.6f\n", trapezoidal(a, b, n));
+    printf("Simpson's 1/3 Rule: %.6f\n", simpson13(a, b, n));
+    printf("Simpson's 3/8 Rule: %.6f\n", simpson38(a, b, n));
+
     return 0;
 }

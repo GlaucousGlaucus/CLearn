@@ -10,7 +10,7 @@ void euler() {
         y += h * f(x, y);
         x += h;
     }
-    printf("Euler y(1): %.4f\\n", y);
+    printf("Euler y(1): %.4f\n", y);
 }
 
 void mod_euler() {
@@ -21,7 +21,7 @@ void mod_euler() {
         y = y + h * (k1 + k2) / 2;
         x += h;
     }
-    printf("Modified Euler y(1): %.4f\\n", y);
+    printf("Modified Euler y(1): %.4f\n", y);
 }
 
 void rk2() {
@@ -32,7 +32,7 @@ void rk2() {
         y = y + (k1 + k2) / 2;
         x += h;
     }
-    printf("RK2 y(1): %.4f\\n", y);
+    printf("RK2 y(1): %.4f\n", y);
 }
 
 void rk4() {
@@ -45,7 +45,7 @@ void rk4() {
         y = y + (k1 + 2*k2 + 2*k3 + k4) / 6;
         x += h;
     }
-    printf("RK4 y(1): %.4f\\n", y);
+    printf("RK4 y(1): %.4f\n", y);
 }
 
 int main() {

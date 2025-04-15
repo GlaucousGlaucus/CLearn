@@ -53,15 +53,6 @@ float gauss_interp(float x[], float y[][10], int n, float val, int is_backward) 
     return result;
 }
 
-// Build central difference table for symmetric interpolation
-void build_central_diff(float y[][10], int n) {
-    for (int i = 1; i < n; i++) {
-        for (int j = 0; j < n - i; j++) {
-            y[j][i] = y[j+1][i-1] - y[j][i-1];
-        }
-    }
-}
-
 // Stirling Interpolation (no factorial)
 float stirling(float x[], float y[][10], int n, float val) {
     int i, j, mid = n / 2, k = 1;
